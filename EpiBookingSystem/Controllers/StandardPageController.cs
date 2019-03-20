@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using EpiBookingSystem.Models.Pages;
 using EpiBookingSystem.Models.ViewModels;
+using EpiBookingSystem.Repositories;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
@@ -18,7 +19,12 @@ namespace EpiBookingSystem.Controllers
 {
     public class StandardPageController : PageController<StandardPage>
     {
+        private readonly BookingRepository _repository;
 
+        public StandardPageController(BookingRepository repository)
+        {
+            _repository = repository;
+        }
 
 
         public ActionResult Index(StandardPage currentPage)
@@ -40,9 +46,8 @@ namespace EpiBookingSystem.Controllers
             if (ModelState.IsValid)
             {
 
-                var dbContext = new IdentityDbContext<IdentityUser>("DefaultConnection");
-                dbContext.Database.CreateIfNotExists();
-
+                //var dbContext = new IdentityDbContext<IdentityUser>("DefaultConnection");
+                var dbContext = _repository.GetUsersRepository();
                 var userStore = new UserStore<IdentityUser>(dbContext);
                 var userManager = new UserManager<IdentityUser, string>(userStore);
                 var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email};
