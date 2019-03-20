@@ -37,9 +37,10 @@ namespace EpiBookingSystem.Repositories
             throw new NotImplementedException();
         }
 
-     
+        public IdentityDbContext<IdentityUser> GetContext()
+        {
+            return new IdentityDbContext<IdentityUser>("DefaultConnection");
 
-        
-
+        }
     }
 }

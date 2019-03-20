@@ -23,12 +23,12 @@ namespace EpiBookingSystem.Controllers
     {
         private readonly IBookingRepository _repository;
 
-        private readonly ApplicationDbContext<IdentityUser> _context;
+        private IdentityDbContext<IdentityUser> _context;
 
-        public StandardPageController(IBookingRepository repository, ApplicationDbContext<IdentityUser> context)
+        public StandardPageController(IBookingRepository repository)
         {
             _repository = repository;
-            _context = context;
+            
         }
 
 
@@ -48,9 +48,9 @@ namespace EpiBookingSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                _context = _repository.GetContext();
 
-                //var dbContext = new IdentityDbContext<IdentityUser>("DefaultConnection");
-                                
+
                 var userStore = new UserStore<IdentityUser>(_context);
                 var userManager = new UserManager<IdentityUser, string>(userStore);
                 var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email};

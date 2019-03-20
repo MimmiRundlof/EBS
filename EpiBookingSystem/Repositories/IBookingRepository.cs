@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace EpiBookingSystem.Repositories
 {
     public interface IBookingRepository
     {
+        IdentityDbContext<IdentityUser> GetContext();
         void GetAllUsers();
         void GetAllAppointments();
         void GetAppointments(int id);
