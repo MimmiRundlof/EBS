@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using EpiBookingSystem.Models.Identity;
 using EpiBookingSystem.Models.Pages;
 using EpiBookingSystem.Models.ViewModels;
 using EpiBookingSystem.Repositories;
 using EPiServer;
+using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Web.Mvc;
@@ -19,19 +21,20 @@ namespace EpiBookingSystem.Controllers
 {
     public class StandardPageController : PageController<StandardPage>
     {
-        private readonly BookingRepository _repository;
+        private readonly IBookingRepository _repository;
 
-        public StandardPageController(BookingRepository repository)
+        private readonly ApplicationDbContext<IdentityUser> _context;
+
+        public StandardPageController(IBookingRepository repository, ApplicationDbContext<IdentityUser> context)
         {
             _repository = repository;
+            _context = context;
         }
 
 
         public ActionResult Index(StandardPage currentPage)
         {
-            /* Implementation of action. You can create your own view model class that you pass to the view or
-             * you can pass the page type for simpler templates */
-
+          
             var model = new StandardPageViewModel()
             {
 
@@ -47,8 +50,8 @@ namespace EpiBookingSystem.Controllers
             {
 
                 //var dbContext = new IdentityDbContext<IdentityUser>("DefaultConnection");
-                var dbContext = _repository.GetUsersRepository();
-                var userStore = new UserStore<IdentityUser>(dbContext);
+                                
+                var userStore = new UserStore<IdentityUser>(_context);
                 var userManager = new UserManager<IdentityUser, string>(userStore);
                 var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email};
 

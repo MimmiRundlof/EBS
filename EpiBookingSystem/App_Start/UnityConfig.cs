@@ -1,4 +1,7 @@
+using EpiBookingSystem.Models.Identity;
 using EpiBookingSystem.Repositories;
+using EPiServer.Cms.UI.AspNetIdentity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Web.Mvc;
 using Unity;
@@ -42,7 +45,9 @@ namespace EpiBookingSystem
             // Make sure to add a Unity.Configuration to the using statements.
             // container.LoadConfiguration();
 
-            container.RegisterType<BookingRepository>();
+            container.RegisterType<IBookingRepository, BookingRepository>();
+            container.RegisterType<ApplicationDbContext<IdentityUser>>();            
+            
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
