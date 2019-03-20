@@ -45,7 +45,7 @@ namespace EpiBookingSystem.Controllers
 
                 var userStore = new UserStore<IdentityUser>(dbContext);
                 var userManager = new UserManager<IdentityUser, string>(userStore);
-                var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username};
+                var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email};
 
                 userManager.Create(user, model.Password);
 
@@ -60,6 +60,8 @@ namespace EpiBookingSystem.Controllers
                 
 
             }
+            
+       
 
             return RedirectToAction("Index", "StandardPage");
 

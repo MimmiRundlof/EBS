@@ -3,9 +3,12 @@
 @using EPiServer.Web.Mvc.Html
 @model StandardPageViewModel
 
+@{ var userName = System.Web.HttpContext.Current.User.Identity.Name; }
+
+
 @if (User.IsInRole("WebAdmins"))
 {
-    <p>Hej</p>
+    <p>Hej @userName</p>
     @Html.ActionLink("Logout", "LogOut", "StandardPage")
 
 
@@ -14,7 +17,7 @@
         <div class="row">
             <div class="span12">
 
-                <h2>Create Administrator Account</h2>
+                <h2>Create Account</h2>
 
                 @using (Html.BeginForm("Index", "StandardPage", FormMethod.Post))
                 {
@@ -57,7 +60,7 @@ else
 
     if (User.Identity.IsAuthenticated)
     {
-        <p>Hej</p>
+        <p>Hej @userName</p>
         @Html.ActionLink("Logout", "LogOut", "StandardPage")
     }
     else
