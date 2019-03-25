@@ -1,5 +1,6 @@
 ﻿using EpiBookingSystem.Models.Identity;
 using EPiServer.Cms.UI.AspNetIdentity;
+using EPiServer.ServiceLocation;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -8,14 +9,15 @@ using System.Web;
 
 namespace EpiBookingSystem.Repositories
 {
+    [ServiceConfiguration(ServiceType = typeof(IBookingRepository), Lifecycle = ServiceInstanceScope.HttpContext)]
     public class BookingRepository : IBookingRepository
     {
         private readonly ApplicationDbContext<IdentityUser> _context;
 
-        public BookingRepository(ApplicationDbContext<IdentityUser> context)
-        {
-            _context = context;
-        }
+        //public BookingRepository(ApplicationDbContext<IdentityUser> context)
+        //{
+        //    _context = context;
+        //}
 
         public void GetAllAppointments()
         {

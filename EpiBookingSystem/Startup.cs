@@ -20,7 +20,7 @@ namespace EpiBookingSystem
             // Add CMS integration for ASP.NET Identity
             app.AddCmsAspNetIdentity<ApplicationUser>();
 
-            
+
             // Use cookie authentication
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
