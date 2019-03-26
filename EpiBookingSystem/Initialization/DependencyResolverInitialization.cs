@@ -8,26 +8,33 @@ using System.Web;
 using StructureMap;
 using System.Web.Mvc;
 using EpiBookingSystem.Repositories;
+using EpiBookingSystem.Models.Identity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace EpiBookingSystem
 {
     [ModuleDependency(typeof(ServiceContainerInitialization))]
     [InitializableModule]
-    public class Test : IConfigurableModule
+    public class DependencyResolverInitialization : IConfigurableModule
     {
-            public void ConfigureContainer(ServiceConfigurationContext context)
-            {
+        public void ConfigureContainer(ServiceConfigurationContext context)
+        {
             context.StructureMap().Configure(x =>
             {
                 x.For<IBookingRepository>().Use<BookingRepository>();
+                x.For<ApplicationDbContext>().Use<ApplicationDbContext>();
+                             
+
+
             });
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(context.StructureMap()));
-            }
-
-            public void Initialize(InitializationEngine context) { }
-            public void Uninitialize(InitializationEngine context) { }
-            public void Preload(string[] parameters) { }
         }
+
+        public void Initialize(InitializationEngine context) { }
+        public void Uninitialize(InitializationEngine context) { }
+        public void Preload(string[] parameters) { }
+    }
 
 
     public class StructureMapDependencyResolver : IDependencyResolver

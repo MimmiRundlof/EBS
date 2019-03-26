@@ -16,7 +16,7 @@ namespace EpiBookingSystem
             routes.MapRoute(
                 "Default",                                              // Route name
                 "{controller}/{action}/{id}",                           // URL with parameters
-                new { controller = "Account", action = "LogIn", id = "" }  // Parameter defaults
+                new { controller = "Account", action = "Authenticate", id = "" }  // Parameter defaults
             );
 
             RegisterRoutes(routes);

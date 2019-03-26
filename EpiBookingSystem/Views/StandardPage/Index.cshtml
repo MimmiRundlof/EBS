@@ -11,3 +11,26 @@
     <p>Hej @userName</p>
     @Html.ActionLink("Log out", "LogOut", "Account")
 }
+
+
+
+@using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
+{
+
+        @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Please select")
+
+
+
+@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })
+
+<input type="submit" class="" value="Boka" />
+
+}
+
+@foreach (var item in Model.Appointments)
+{
+
+    <h3>@item.Treatment.Name</h3>
+    <p>@item.Treatment.Description</p>
+    @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+}

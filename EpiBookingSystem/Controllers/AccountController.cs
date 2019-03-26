@@ -20,59 +20,69 @@ namespace EpiBookingSystem.Controllers
 
         private IdentityDbContext<IdentityUser> _context;
 
+        private readonly UserManager<IdentityUser> _userManager;
+
+        private readonly UserStore<IdentityUser> uss;
+
+
         private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
-
-
-
-        public AccountController(IBookingRepository repository)
+        
+        public AccountController(IBookingRepository repository, IdentityDbContext<IdentityUser> u)
         {
             _context = repository.GetContext();
-
+            
 
         }
-        
+
         public ActionResult LogOut()
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Authenticate", "StandardPage");
             }
             AuthenticationManager.SignOut();
-            return RedirectToAction("LogIn", "Account");
+            return RedirectToAction("Authenticate", "Account");
 
 
         }
 
-        public ActionResult LogIn()
+        public ActionResult Authenticate()
         {
-            if (User.Identity.IsAuthenticated)
+            if (User.IsInRole("User"))
             {
                 return RedirectToAction("Index", "StandardPage");
             }
-            return View();
+            return View("Authenticate");
 
         }
 
         [HttpPost]
-        public async Task<ActionResult> LogIn(StandardPageViewModel model)
+        public async Task<ActionResult> LogIn(AuthenticateViewModel model)
         {
-          
+
             var userStore = new UserStore<IdentityUser>(_context);
             var userManager = new UserManager<IdentityUser, string>(userStore);
 
             var signInManager = new SignInManager<IdentityUser, string>
                    (userManager, AuthenticationManager);
 
-            await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
 
+            if (result == SignInStatus.Success)
+            {
+                return RedirectToAction("Index", "StandardPage");
 
-            return RedirectToAction("Index", "StandardPage");
-            
+            }
+            else
+            {
+                return View("Authenticate", model);
+            }
+
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Index(StandardPageViewModel model)
+        public async Task<ActionResult> Register(AuthenticateViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +105,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
-                return View(model);
+                return View("Authenticate", model);
             }
         }
     }

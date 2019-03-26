@@ -275,17 +275,31 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\StandardPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Global.cs" />
-    <Compile Include="InitializationModule.cs" />
+    <Compile Include="Initialization\InitializationModule.cs" />
     <Compile Include="Migrations\201903191420418_Initial.cs" />
     <Compile Include="Migrations\201903191420418_Initial.Designer.cs">
       <DependentUpon>201903191420418_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903260851065_AddEntities.cs" />
+    <Compile Include="Migrations\201903260851065_AddEntities.Designer.cs">
+      <DependentUpon>201903260851065_AddEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903260903050_Test.cs" />
+    <Compile Include="Migrations\201903260903050_Test.Designer.cs">
+      <DependentUpon>201903260903050_Test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903261051161_Corrections.cs" />
+    <Compile Include="Migrations\201903261051161_Corrections.Designer.cs">
+      <DependentUpon>201903261051161_Corrections.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Blocks\ButtonBlock.cs" />
     <Compile Include="Models\Blocks\ContactBlock.cs" />
     <Compile Include="Models\Blocks\EditorialBlock.cs" />
@@ -304,16 +318,29 @@
     <Compile Include="Models\Register\RegisterViewModel.cs" />
     <Compile Include="Models\SiteContentType.cs" />
     <Compile Include="Models\SiteImageUrl.cs" />
+    <Compile Include="Models\Treatment.cs" />
+    <Compile Include="Models\ViewModels\AuthenticateViewModel.cs" />
     <Compile Include="Models\ViewModels\StandardPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BookingRepository.cs" />
     <Compile Include="Repositories\IBookingRepository.cs" />
+    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Initialization\DependencyResolverInitialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903191420418_Initial.resx">
       <DependentUpon>201903191420418_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903260851065_AddEntities.resx">
+      <DependentUpon>201903260851065_AddEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903260903050_Test.resx">
+      <DependentUpon>201903260903050_Test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903261051161_Corrections.resx">
+      <DependentUpon>201903261051161_Corrections.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -400,7 +427,7 @@
     <Content Include="Views\StandardPage\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Account\LogIn.cshtml" />
+    <Content Include="Views\Account\Authenticate.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -409,7 +436,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Booking\" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">

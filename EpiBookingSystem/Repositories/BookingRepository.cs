@@ -12,12 +12,13 @@ namespace EpiBookingSystem.Repositories
     [ServiceConfiguration(ServiceType = typeof(IBookingRepository), Lifecycle = ServiceInstanceScope.HttpContext)]
     public class BookingRepository : IBookingRepository
     {
-        private readonly ApplicationDbContext<IdentityUser> _context;
+        private ApplicationDbContext _context;  
+               
+        public BookingRepository(ApplicationDbContext context)
+        {
+            _context = context;
 
-        //public BookingRepository(ApplicationDbContext<IdentityUser> context)
-        //{
-        //    _context = context;
-        //}
+        }
 
         public void GetAllAppointments()
         {
@@ -42,6 +43,12 @@ namespace EpiBookingSystem.Repositories
         public IdentityDbContext<IdentityUser> GetContext()
         {
             return new IdentityDbContext<IdentityUser>("DefaultConnection");
+
+        }
+
+        public ApplicationDbContext GetDbContext()
+        {
+            return new ApplicationDbContext();
 
         }
     }

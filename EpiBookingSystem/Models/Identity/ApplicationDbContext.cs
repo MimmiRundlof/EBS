@@ -9,16 +9,19 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace EpiBookingSystem.Models.Identity
 {
 
-        public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+        public class ApplicationDbContext : IdentityDbContext<IdentityUser>
         {
             public ApplicationDbContext()
                 : base("DefaultConnection")
             {
             }
 
+        public DbSet<Appointment> Appointment { get; set; }
 
+        public DbSet<Treatment> Treatment { get; set; }
+        
 
-            public static ApplicationDbContext Create()
+        public static ApplicationDbContext Create()
             {
                 return new ApplicationDbContext();
             }
