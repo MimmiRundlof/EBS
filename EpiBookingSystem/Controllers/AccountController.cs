@@ -18,19 +18,14 @@ namespace EpiBookingSystem.Controllers
     public class AccountController : Controller
     {
 
-        private IdentityDbContext<IdentityUser> _context;
-
-        private readonly UserManager<IdentityUser> _userManager;
-
-        private readonly UserStore<IdentityUser> uss;
-
+        private IUserRepository _userRepository;
 
         private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
-        
-        public AccountController(IBookingRepository repository, IdentityDbContext<IdentityUser> u)
+
+
+        public AccountController(IUserRepository userRepository)
         {
-            _context = repository.GetContext();
-            
+            _userRepository = userRepository;
 
         }
 
@@ -60,15 +55,8 @@ namespace EpiBookingSystem.Controllers
         public async Task<ActionResult> LogIn(AuthenticateViewModel model)
         {
 
-            var userStore = new UserStore<IdentityUser>(_context);
-            var userManager = new UserManager<IdentityUser, string>(userStore);
-
-            var signInManager = new SignInManager<IdentityUser, string>
-                   (userManager, AuthenticationManager);
-
-            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
-
-            if (result == SignInStatus.Success)
+            await _userRepository.LogIn(model, AuthenticationManager);
+            if (AuthenticationManager.User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "StandardPage");
 
@@ -87,18 +75,7 @@ namespace EpiBookingSystem.Controllers
             if (ModelState.IsValid)
             {
 
-                var userStore = new UserStore<IdentityUser>(_context);
-                var userManager = new UserManager<IdentityUser, string>(userStore);
-                var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email };
-
-                userManager.Create(user, model.Password);
-
-
-                var signInManager = new SignInManager<IdentityUser, string>
-                     (userManager, AuthenticationManager);
-
-
-                await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
+                await _userRepository.CreateUser(model, AuthenticationManager);
 
                 return RedirectToAction("Index", "StandardPage");
 

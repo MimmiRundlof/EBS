@@ -1,4 +1,5 @@
-﻿using EpiBookingSystem.Models.Identity;
+﻿using EpiBookingSystem.Models;
+using EpiBookingSystem.Models.Identity;
 using EPiServer.Cms.UI.AspNetIdentity;
 using EPiServer.ServiceLocation;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -6,49 +7,65 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace EpiBookingSystem.Repositories
 {
-    [ServiceConfiguration(ServiceType = typeof(IBookingRepository), Lifecycle = ServiceInstanceScope.HttpContext)]
     public class BookingRepository : IBookingRepository
     {
-        private ApplicationDbContext _context;  
-               
+        private ApplicationDbContext _context;
+
         public BookingRepository(ApplicationDbContext context)
         {
             _context = context;
 
         }
 
-        public void GetAllAppointments()
+        public void BookAppointment(int treatmentId, string userId, DateTime date)
         {
-            throw new NotImplementedException();
+
+            var appointment = new Appointment
+            {
+                Treatment = _context.Treatment.SingleOrDefault(x => x.TreatmentId == treatmentId),
+                Customer = _context.Users.SingleOrDefault(x=> x.Id == userId),
+                Date = date
+            };
+            _context.Appointment.Add(appointment);
+            _context.SaveChanges();
         }
 
-        public void GetAllUsers()
+        public void CancelAppointment(int appointmentId)
         {
-            throw new NotImplementedException();
+            var appointment = _context.Appointment.SingleOrDefault(x => x.AppointmentId == appointmentId);
+            _context.Appointment.Remove(appointment);
+            _context.SaveChanges();
         }
 
-        public void GetAppointments()
+        public List<Appointment> GetAllAppointments()
         {
-            throw new NotImplementedException();
+            var appointments = _context.Appointment.Include("Treatment").ToList();
+
+            return appointments;
         }
 
-        public void GetAppointments(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IdentityDbContext<IdentityUser> GetContext()
+        public List<Appointment> GetAppointments(string userId)
         {
-            return new IdentityDbContext<IdentityUser>("DefaultConnection");
+            var appointments = _context.Appointment.Include("Treatment").Where(x => x.Customer.Id == userId).ToList();
+
+            return appointments;
 
         }
 
-        public ApplicationDbContext GetDbContext()
+        public IEnumerable<SelectListItem> GetTreatments()
         {
-            return new ApplicationDbContext();
+            var treatments = _context.Treatment.Select(x => new SelectListItem()
+            {
+                Value = x.TreatmentId.ToString(),
+                Text = x.Name
+            });
+
+            return treatments;
 
         }
     }

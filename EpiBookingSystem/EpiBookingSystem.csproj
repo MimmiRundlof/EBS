@@ -272,8 +272,6 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <ItemGroup>
     <Compile Include="App_Start\IdentityConfig.cs" />
-    <Compile Include="App_Start\UnityConfig.cs" />
-    <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\StandardPageController.cs" />
@@ -300,21 +298,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Blocks\ButtonBlock.cs" />
-    <Compile Include="Models\Blocks\ContactBlock.cs" />
-    <Compile Include="Models\Blocks\EditorialBlock.cs" />
-    <Compile Include="Models\Blocks\JumbotronBlock.cs" />
-    <Compile Include="Models\Blocks\PageListBlock.cs" />
-    <Compile Include="Models\Blocks\SiteBlockData.cs" />
-    <Compile Include="Models\Blocks\SiteLogotypeBlock.cs" />
-    <Compile Include="Models\Blocks\TeaserBlock.cs" />
     <Compile Include="Models\Identity\ApplicationDbContext.cs" />
     <Compile Include="Models\Identity\ApplicationUser.cs" />
-    <Compile Include="Models\Media\GenericMedia.cs" />
-    <Compile Include="Models\Media\ImageFile.cs" />
-    <Compile Include="Models\Media\VideoFile.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
-    <Compile Include="Models\Properties\PropertyStringList.cs" />
     <Compile Include="Models\Register\RegisterViewModel.cs" />
     <Compile Include="Models\SiteContentType.cs" />
     <Compile Include="Models\SiteImageUrl.cs" />
@@ -353,13 +339,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Resources\LanguageFiles\ContentTypeNames.xml" />
-    <Content Include="Resources\LanguageFiles\Display.xml" />
-    <Content Include="Resources\LanguageFiles\EditorHints.xml" />
-    <Content Include="Resources\LanguageFiles\GroupNames.xml" />
-    <Content Include="Resources\LanguageFiles\PropertyNames.xml" />
-    <Content Include="Resources\LanguageFiles\Views.xml" />
-    <Content Include="Resources\LanguageFiles\_ReadMe.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -437,6 +416,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Blocks\" />
+    <Folder Include="Models\Media\" />
+    <Folder Include="Models\Properties\" />
+    <Folder Include="Resources\LanguageFiles\" />
     <Folder Include="Views\Booking\" />
   </ItemGroup>
   <ProjectExtensions>

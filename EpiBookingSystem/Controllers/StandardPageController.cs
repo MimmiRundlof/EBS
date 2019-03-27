@@ -38,18 +38,14 @@ namespace EpiBookingSystem.Controllers
             }
             var userId = User.Identity.GetUserId();
 
-            var test = _context.Appointment.Include("Treatment").Where(x => x.Customer.Id == userId).ToList();
+
 
             var model = new StandardPageViewModel()
             {
-                Appointments = test,
-                Treatments = _context.Treatment.Select(x=> new SelectListItem()
-                {
-                    Value = x.TreatmentId.ToString(),
-                    Text = x.Name
-                })
+                Appointments = _repository.GetAppointments(userId),
+                Treatments = _repository.GetTreatments()
             };
-        
+
 
 
 
