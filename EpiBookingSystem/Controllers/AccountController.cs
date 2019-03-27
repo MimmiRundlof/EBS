@@ -33,7 +33,7 @@ namespace EpiBookingSystem.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Authenticate", "StandardPage");
+                return RedirectToAction("Authenticate", "Account");
             }
             AuthenticationManager.SignOut();
             return RedirectToAction("Authenticate", "Account");
@@ -41,13 +41,13 @@ namespace EpiBookingSystem.Controllers
 
         }
 
-        public ActionResult Authenticate()
+        public ActionResult Index()
         {
             if (User.IsInRole("User"))
             {
                 return RedirectToAction("Index", "StandardPage");
             }
-            return View("Authenticate");
+            return View("Index");
 
         }
 

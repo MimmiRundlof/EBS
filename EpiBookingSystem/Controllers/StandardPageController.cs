@@ -34,7 +34,7 @@ namespace EpiBookingSystem.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Authenticate", "Account");
+                return RedirectToAction("Index", "Account");
             }
             var userId = User.Identity.GetUserId();
 
