@@ -37,6 +37,8 @@ namespace EpiBookingSystem.Repositories
 
             _userManager.Create(user, model.Password);
 
+            await _userManager.AddToRoleAsync(user.Id, "User");
+
             var signInManager = new SignInManager<IdentityUser, string>
                  (_userManager, authenticationManager);
 
@@ -48,6 +50,7 @@ namespace EpiBookingSystem.Repositories
 
         public async Task LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager)
         {
+            
             var signInManager = new SignInManager<IdentityUser, string>
                    (_userManager, authenticationManager);
 

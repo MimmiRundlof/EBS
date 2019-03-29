@@ -5,32 +5,81 @@
 
 @{ var userName = System.Web.HttpContext.Current.User.Identity.Name; }
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("Admin"))
 {
-    <p>Hej @userName</p>
-    @Html.ActionLink("Log out", "LogOut", "Account")
+
+    <h2>adminvy</h2>
+}
+else
+{
+
+
+    <div class="col-lg-8">
+        <h2>Boka behandling:</h2>
+        @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
+        {
+
+            @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Please select", new { @class = "form-control" })
+
+
+
+            @*@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })*@
+
+
+        
+
+            <div class='input-group date' id='datetimepicker'>
+                <input type='text' class="form-control" name="Date" />
+                <span class="input-group-addon">
+                    Välj datum här
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+
+            </div>
+
+            <input type="submit" class="" value="Boka" />
+
+            }
+
+
+        </div>
+
+
+
+
+
+
+
+
+    <div class="col-lg-4" style="float: right;">
+        <h2>Dina bokningar:</h2>
+        @foreach (var item in Model.Appointments)
+        {
+
+            <h3>@item.Treatment.Name</h3>
+            <p>@item.Date.ToString("MM/dd/yyyy HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
+            <p>@item.Treatment.Description</p>
+
+        }
+    </div>
 }
 
 
+    <script type="text/javascript">
 
-@using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
-{
-
-        @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Please select")
-
-
-
-@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })
-
-<input type="submit" class="" value="Boka" />
-
-}
-
-@foreach (var item in Model.Appointments)
-{
-
-    <h3>@item.Treatment.Name</h3>
-    <p>@item.Treatment.Description</p>
-    @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
-}
+        
+        $(document).on('dp.show', function (e) {
+            
+        });
+        
+        $(function () {
+            $('#datetimepicker').datetimepicker({
+                daysOfWeekDisabled: [0, 6],
+                sideBySide: true
+            })
+        });
+    </script>

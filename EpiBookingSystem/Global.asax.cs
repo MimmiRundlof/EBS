@@ -8,9 +8,6 @@ namespace EpiBookingSystem
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            ////UnityConfig.RegisterTypes(UnityConfig.Container);
-            ///
-
 
             var routes = RouteTable.Routes;
             routes.MapRoute(

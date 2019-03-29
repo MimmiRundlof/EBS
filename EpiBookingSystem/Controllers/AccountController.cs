@@ -33,17 +33,17 @@ namespace EpiBookingSystem.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Authenticate", "Account");
+                return RedirectToAction("Index", "Account");
             }
             AuthenticationManager.SignOut();
-            return RedirectToAction("Authenticate", "Account");
+            return RedirectToAction("Index", "Account");
 
 
         }
-
+        
         public ActionResult Index()
         {
-            if (User.IsInRole("User"))
+            if (User.IsInRole("User")||User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "StandardPage");
             }
@@ -54,16 +54,23 @@ namespace EpiBookingSystem.Controllers
         [HttpPost]
         public async Task<ActionResult> LogIn(AuthenticateViewModel model)
         {
-
-            await _userRepository.LogIn(model, AuthenticationManager);
-            if (AuthenticationManager.User.Identity.IsAuthenticated)
+            if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password))
             {
-                return RedirectToAction("Index", "StandardPage");
+                await _userRepository.LogIn(model, AuthenticationManager);
+                if (AuthenticationManager.User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "StandardPage");
+
+                }
+                else
+                {
+                    return View("Index", model);
+                }
 
             }
             else
             {
-                return View("Authenticate", model);
+                return View("Index", model);
             }
 
         }
@@ -82,7 +89,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
-                return View("Authenticate", model);
+                return View("Index", model);
             }
         }
     }
