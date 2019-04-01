@@ -3,69 +3,116 @@
 @using EPiServer.Web.Mvc.Html
 @model AuthenticateViewModel
 
-<h2>Login</h2>
 
-@using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
+<div class="col-lg-3" style="margin: auto;" >
+<h4 class="bar" style="background-color:lightgrey;" onclick="myFunction()">Logga in</h4>
+<h4 class="bar" style="background-color:lightgrey;" onclick="myFunction2()">Skapa konto</h4>
+
+
+<div id="myDIV" hidden>
+
+    <h3>Logga in</h3>
+
+    @using (Html.BeginForm("LogIn", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
     <div class="control-group">
         @Html.LabelFor(m => m.Username)
         @Html.TextBoxFor(m => m.Username)
-
+        @Html.ValidationMessageFor(m => m.Username)
     </div>
 
     <div class="control-group">
         @Html.LabelFor(m => m.Password)
         @Html.PasswordFor(m => m.Password)
-
+        @Html.ValidationMessageFor(m => m.Password)
     </div>
 
-    <div class="control-group">
-        @*@Html.ValidationMessage(RegisterController.ErrorKey)*@
-    </div>
-    <div class="control-group">
-        <input type="submit" class="" value="Log in" />
-    </div>
+        <div class="control-group">
+            
+        </div>
+        <div class="control-group">
+            <input type="submit" class="" value="Logga in" />
+        </div>
+        
+    }
+</div>
+<div id="myDIV2" hidden>
 
-}
 
-<div class="container">
-    <div class="row">
-        <div class="span12">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
 
-            <h2>Create Account</h2>
+                <h3>Skapa konto</h3>
 
-            @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-            {
-                @Html.AntiForgeryToken()
-                <div class="control-group">
-                    @Html.LabelFor(m => m.Username)
-                    @Html.TextBoxFor(m => m.Username)
-                    @Html.ValidationMessageFor(m => m.Username)
-                </div>
-                <div class="control-group">
-                    @Html.LabelFor(m => m.Email)
-                    @Html.TextBoxFor(m => m.Email)
-                    @Html.ValidationMessageFor(m => m.Email)
-                </div>
-                <div class="control-group">
-                    @Html.LabelFor(m => m.Password)
-                    @Html.PasswordFor(m => m.Password)
-                    @Html.ValidationMessageFor(m => m.Password)
-                </div>
-                <div class="control-group">
-                    @Html.LabelFor(m => m.ConfirmPassword)
-                    @Html.PasswordFor(m => m.ConfirmPassword)
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                </div>
-                <div class="control-group">
-                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
-                </div>
-                <div class="control-group">
-                    <input type="submit" class="" value="Register" />
-                </div>
-            }
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Username)
+                        @Html.TextBoxFor(m => m.Username)
+                        @Html.ValidationMessageFor(m => m.Username)
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email)
+                        @Html.ValidationMessageFor(m => m.Email)
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.Password)
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(m => m.ConfirmPassword)
+                        @Html.PasswordFor(m => m.ConfirmPassword)
+                        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                    </div>
+                    <div class="control-group">
+                        
+                    </div>
+                    <div class="control-group">
+                        <input type="submit" class="" value="Registrera" />
+                    </div>
+                }
+            </div>
         </div>
     </div>
-</div>
+    </div></div>
+    <script>
+
+        var model = @Html.Raw(Json.Encode(Model.AuthenticationType));
+
+        var x = document.getElementById("myDIV");
+        var y = document.getElementById("myDIV2");
+
+        switch (model) {
+            case "Login":
+                x.style.display = "block";
+                break;
+            case "Register":
+                y.style.display = "block";
+                break;
+        };
+
+        function myFunction() {
+            
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                y.style.display = "none";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        function myFunction2() {
+            
+            if (y.style.display === "none") {
+                y.style.display = "block";
+                x.style.display = "none";
+            } else {
+                y.style.display = "none";
+            }
+        }
+    </script>

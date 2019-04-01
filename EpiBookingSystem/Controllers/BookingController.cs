@@ -34,10 +34,18 @@ namespace EpiBookingSystem.Controllers
         [HttpPost]
         public ActionResult BookAppointment(StandardPageViewModel model)
         {
+            if(ModelState.IsValid)
+            { 
             var userId = User.Identity.GetUserId();
             _repository.BookAppointment(model.TreatmentId, userId , model.Date);
 
             return RedirectToAction("Index", "StandardPage");
+            }
+            else
+            {
+                
+                return RedirectToAction("Index", "StandardPage", model);
+            }
         }
 
     }

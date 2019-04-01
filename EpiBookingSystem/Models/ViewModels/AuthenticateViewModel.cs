@@ -10,6 +10,9 @@ namespace EpiBookingSystem.Models.ViewModels
     public class AuthenticateViewModel
     {
 
+        public string AuthenticationType { get; set; }
+
+
         [Required]
         [Display(Name = "Username")]
         [RegularExpression(@"^[a-zA-Z0-9_-]+$", ErrorMessage = "Username can only contain letters a-z, numbers, underscores and hyphens.")]

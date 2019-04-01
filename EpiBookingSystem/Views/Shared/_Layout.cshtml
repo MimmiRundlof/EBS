@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@{ var userName = System.Web.HttpContext.Current.User.Identity.Name; }
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -25,23 +27,29 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Capio Ögon", "Index", "StandardPage", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
+                <div style="float:right; color:white;">
+                    @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
+                    {
+                        <h4>Hej @userName!</h4>
+                        @Html.ActionLink("Logga ut", "LogOut", "Account")
+                    }
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
-        
-        <footer>
-        </footer>
+
+        <footer></footer>
     </div>
 
 
-    
+
 
 </body>
 </html>

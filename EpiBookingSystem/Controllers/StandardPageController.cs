@@ -5,7 +5,11 @@ using EpiBookingSystem.Models.Identity;
 using EpiBookingSystem.Models.Pages;
 using EpiBookingSystem.Models.ViewModels;
 using EpiBookingSystem.Repositories;
+using EPiServer;
+using EPiServer.Core;
+using EPiServer.ServiceLocation;
 using EPiServer.Web.Mvc;
+using EPiServer.Web.Routing;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -15,6 +19,14 @@ namespace EpiBookingSystem.Controllers
 {
     public class StandardPageController : PageController<StandardPage>
     {
+        protected virtual StandardPage CurrentPage
+        {
+            get
+            {
+                return PageContext.Page as StandardPage;
+            }
+        }
+
         private IBookingRepository _repository;
 
         private ApplicationDbContext _context;
@@ -39,11 +51,11 @@ namespace EpiBookingSystem.Controllers
             var userId = User.Identity.GetUserId();
 
 
-
-            var model = new StandardPageViewModel()
+            var model = new StandardPageViewModel()            
             {
                 Appointments = _repository.GetAppointments(userId),
-                Treatments = _repository.GetTreatments()
+                Treatments = _repository.GetTreatments(),
+                Test = CurrentPage.Test
             };
 
 

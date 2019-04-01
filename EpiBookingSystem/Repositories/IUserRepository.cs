@@ -13,6 +13,6 @@ namespace EpiBookingSystem.Repositories
     public interface IUserRepository
     {
         Task CreateUser(AuthenticateViewModel model, IAuthenticationManager authenticationManager);
-        Task LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager);
+        Task<SignInStatus> LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager);
     }
 }

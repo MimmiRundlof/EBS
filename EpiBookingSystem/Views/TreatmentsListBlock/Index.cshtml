@@ -1,0 +1,28 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@model EpiBookingSystem.Models.ViewModels.TreatmentsListBlockViewModel
+
+<div class="col-lg-8">
+    <h2>Boka behandling:</h2>
+    @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
+    {
+
+        @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "form-control" })
+
+
+        <div class='input-group date' id='datetimepicker'>
+            <input type='text' class="form-control" name="Date" />
+            <span class="input-group-addon">
+                Välj datum här
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+
+        </div>
+
+        <input type="submit" class="" value="Boka" />
+
+    }
+
+
+</div>
+

@@ -48,13 +48,16 @@ namespace EpiBookingSystem.Repositories
            
         }
 
-        public async Task LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager)
+        public async Task<SignInStatus> LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager)
         {
             
             var signInManager = new SignInManager<IdentityUser, string>
                    (_userManager, authenticationManager);
 
-            await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
+            var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, true, true);
+
+            return result;
+
         }
 
     }

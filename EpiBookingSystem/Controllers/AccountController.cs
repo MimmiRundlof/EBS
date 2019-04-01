@@ -47,7 +47,11 @@ namespace EpiBookingSystem.Controllers
             {
                 return RedirectToAction("Index", "StandardPage");
             }
-            return View("Index");
+            var model = new AuthenticateViewModel()
+            {
+                AuthenticationType = ""
+            };
+            return View("Index", model);
 
         }
 
@@ -56,23 +60,19 @@ namespace EpiBookingSystem.Controllers
         {
             if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password))
             {
-                await _userRepository.LogIn(model, AuthenticationManager);
-                if (AuthenticationManager.User.Identity.IsAuthenticated)
+                var result = await _userRepository.LogIn(model, AuthenticationManager);
+                if (result.ToString() == "Success")
                 {
                     return RedirectToAction("Index", "StandardPage");
 
                 }
-                else
-                {
-                    return View("Index", model);
-                }
+          
 
             }
-            else
-            {
+            
+                model.AuthenticationType = "Login";
                 return View("Index", model);
-            }
-
+        
         }
 
         [HttpPost]
@@ -89,6 +89,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
+                model.AuthenticationType = "Register";
                 return View("Index", model);
             }
         }

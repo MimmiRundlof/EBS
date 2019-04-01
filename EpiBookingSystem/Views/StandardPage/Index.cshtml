@@ -1,13 +1,18 @@
 ﻿@using EpiBookingSystem
 @using EPiServer.Core
 @using EPiServer.Web.Mvc.Html
+@using EPiServer.Core;
+@using EPiServer.ServiceLocation;
+@using EPiServer;
 @model StandardPageViewModel
 
 @{ var userName = System.Web.HttpContext.Current.User.Identity.Name; }
 
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 
 @if (User.IsInRole("Admin"))
 {
@@ -16,37 +21,33 @@
 }
 else
 {
+    <div>
+        @Html.PropertyFor(x => x.Test, new { CssClass = "row" })
+    </div>
+
+    @*<div class="col-lg-8">
+            <h2>Boka behandling:</h2>
+            @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
+            {
+
+                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "form-control" })
 
 
-    <div class="col-lg-8">
-        <h2>Boka behandling:</h2>
-        @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
-        {
+                <div class='input-group date' id='datetimepicker'>
+                    <input type='text' class="form-control" name="Date" />
+                    <span class="input-group-addon">
+                        Välj datum här
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
 
-            @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Please select", new { @class = "form-control" })
+                </div>
 
-
-
-            @*@Html.TextBoxFor(m => m.Date, "{0:yyyy-MM-ddThh:mm:ss}", new { @class = "form-control", type = "datetime-local" })*@
-
-
-        
-
-            <div class='input-group date' id='datetimepicker'>
-                <input type='text' class="form-control" name="Date" />
-                <span class="input-group-addon">
-                    Välj datum här
-                    <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-
-            </div>
-
-            <input type="submit" class="" value="Boka" />
+                <input type="submit" class="" value="Boka" />
 
             }
 
 
-        </div>
+        </div>*@
 
 
 
@@ -69,17 +70,21 @@ else
 }
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        
-        $(document).on('dp.show', function (e) {
-            
-        });
-        
-        $(function () {
-            $('#datetimepicker').datetimepicker({
-                daysOfWeekDisabled: [0, 6],
-                sideBySide: true
-            })
-        });
-    </script>
+
+    $(document).on('dp.show', function (e) {
+
+    });
+
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+            daysOfWeekDisabled: [0, 6],
+            sideBySide: true,
+            stepping: 15
+
+
+
+        })
+    });
+</script>
