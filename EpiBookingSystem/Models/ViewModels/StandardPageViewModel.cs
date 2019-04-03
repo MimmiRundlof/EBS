@@ -12,24 +12,8 @@ namespace EpiBookingSystem.Models.ViewModels
     public class StandardPageViewModel
     {
 
-        public StandardPageViewModel()
-        {
-            this.Date = DateTime.Now;
-        }
 
-        public List<Appointment> Appointments { get; set; }
-
-        public IEnumerable<SelectListItem> Treatments { get; set; }
-        [Required]
-        public int TreatmentId { get; set; }
-
-        [Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yyyy-MM-ddThh:mm:ss}")]
-        [Display(Name = "Registed Date")]
-        public DateTime Date { get; set; }
-
-        public ContentArea Test { get; set; }
+        public ContentArea MainContentArea { get; set; }
 
     }
 }

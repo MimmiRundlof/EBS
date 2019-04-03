@@ -17,7 +17,8 @@ namespace EpiBookingSystem.Models.Pages
             Description = "",
             GroupName = SystemTabNames.Content,
             Order = 1)]
-        public virtual ContentArea Test { get; set; }
+        public virtual ContentArea MainContentArea { get; set; }
+
 
 
     }

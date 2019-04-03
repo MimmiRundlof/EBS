@@ -1,0 +1,15 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@model ListAppointmentsBlockViewModel
+
+<div class="col-lg-4" style="float: right;">
+    <h2>Dina bokningar:</h2>
+    @foreach (var item in Model.Appointments)
+    {
+
+        <h3>@item.Treatment.Name</h3>
+        <p>@item.Date.ToString("yyyy/MM/dd HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
+        <p>@item.Treatment.Description</p>
+
+    }
+</div>

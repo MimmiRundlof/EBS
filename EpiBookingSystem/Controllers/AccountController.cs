@@ -33,51 +33,59 @@ namespace EpiBookingSystem.Controllers
         {
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             AuthenticationManager.SignOut();
-            return RedirectToAction("Index", "Account");
+            return RedirectToAction("LogIn", "Account");
 
 
         }
-        
-        public ActionResult Index()
+
+        public ActionResult LogIn()
         {
-            if (User.IsInRole("User")||User.IsInRole("Admin"))
+            if (User.IsInRole("User") || User.IsInRole("Admin"))
             {
                 return RedirectToAction("Index", "StandardPage");
             }
-            var model = new AuthenticateViewModel()
-            {
-                AuthenticationType = ""
-            };
-            return View("Index", model);
+
+            return View("LogIn");
+
 
         }
 
         [HttpPost]
-        public async Task<ActionResult> LogIn(AuthenticateViewModel model)
+        public async Task<ActionResult> LogIn(LoginViewModel model)
         {
-            if (!String.IsNullOrEmpty(model.Username) && !String.IsNullOrEmpty(model.Password))
+
+
+            if (ModelState.IsValid)
             {
+
                 var result = await _userRepository.LogIn(model, AuthenticationManager);
                 if (result.ToString() == "Success")
                 {
                     return RedirectToAction("Index", "StandardPage");
 
                 }
-          
 
             }
-            
-                model.AuthenticationType = "Login";
-                return View("Index", model);
-        
-        }
+            ModelState.AddModelError("LogInError", "Användarnamnet eller lösenordet stämmer inte.");
+            return View("LogIn", model);
 
+        }
+        public ActionResult Register()
+        {
+            if (User.IsInRole("User") || User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "StandardPage");
+            }
+
+            return View("Register");
+
+        }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<ActionResult> Register(AuthenticateViewModel model)
+        public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -89,8 +97,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
-                model.AuthenticationType = "Register";
-                return View("Index", model);
+                return View("Register", model);
             }
         }
     }

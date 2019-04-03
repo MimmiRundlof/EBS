@@ -1,0 +1,57 @@
+﻿@using EPiServer.Core
+@using EPiServer.Web.Mvc.Html
+@model EpiBookingSystem.Models.ViewModels.BookAppointmentBlockViewModel
+
+<div class="col-lg-8">
+    <h2>Boka behandling:</h2>
+    @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
+    {
+
+        @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "form-control" })
+
+
+        <div class='input-group date' id='datetimepicker'>
+            <input type='text' class="form-control" name="Date" />
+            <span class="input-group-addon">
+                Välj datum här
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+
+        </div>
+        if (User.IsInRole("WebAdmins"))
+        {
+            <input type="submit" id="bookAppointmentButton" class="" value="Boka" disabled />
+
+        }
+        else
+        {
+            <input type="submit" id="bookAppointmentButton" class="" value="Boka" />
+
+        }
+
+        @Html.ValidationMessage("DateTimeNotAvailable");
+    }
+
+
+</div>
+
+
+<script>
+
+        var arr = @Html.Raw(Json.Encode(Model.BookedDates));
+
+    $(document).ready(function () {
+
+        console.log(arr)
+
+    })
+
+    $('#datetimepicker').datetimepicker({
+        daysOfWeekDisabled: [0, 6],
+        format: 'YYYY-MM-DD HH:mm',
+        sideBySide: true,
+        stepping: 60,
+        disabledTimeIntervals: arr
+    });
+
+</script>

@@ -11,17 +11,18 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace EpiBookingSystem.Controllers
 {
-    public class TreatmentsListBlockController : BlockController<TreatmentsListBlock>
+    public class ListAppointmentsBlockController : BlockController<ListAppointmentsBlock>
     {
         private IBookingRepository _repository;
 
         private ApplicationDbContext _context;
 
 
-        public TreatmentsListBlockController(IBookingRepository repository, ApplicationDbContext context)
+        public ListAppointmentsBlockController(IBookingRepository repository, ApplicationDbContext context)
         {
             _context = context;
             _repository = repository;
@@ -29,15 +30,14 @@ namespace EpiBookingSystem.Controllers
         }
 
 
-        public override ActionResult Index(TreatmentsListBlock currentBlock)
+        public override ActionResult Index(ListAppointmentsBlock currentBlock)
         {
+            var userId = User.Identity.GetUserId();
 
-            var model = new TreatmentsListBlockViewModel()
+            var model = new ListAppointmentsBlockViewModel
             {
-                Treatments = _repository.GetTreatments()
-
+                Appointments = _repository.GetAppointments(userId)
             };
-
             return PartialView(model);
         }
     }

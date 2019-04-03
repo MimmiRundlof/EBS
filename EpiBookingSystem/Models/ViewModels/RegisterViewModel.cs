@@ -7,9 +7,8 @@ using System.Web.Mvc;
 
 namespace EpiBookingSystem.Models.ViewModels
 {
-    public class AuthenticateViewModel
+    public class RegisterViewModel
     {
-
         public string AuthenticationType { get; set; }
 
 
@@ -37,4 +36,5 @@ namespace EpiBookingSystem.Models.ViewModels
         [AllowHtml]
         public string ConfirmPassword { get; set; }
     }
+
 }

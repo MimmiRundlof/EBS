@@ -1,6 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using EpiBookingSystem.Models.Identity;
 using EpiBookingSystem.Models.Pages;
 using EpiBookingSystem.Models.ViewModels;
@@ -44,18 +48,18 @@ namespace EpiBookingSystem.Controllers
 
         public ActionResult Index(StandardPage currentPage)
         {
+
+
             if (!User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Account");
+                return RedirectToAction("LogIn", "Account");
             }
             var userId = User.Identity.GetUserId();
 
 
             var model = new StandardPageViewModel()            
             {
-                Appointments = _repository.GetAppointments(userId),
-                Treatments = _repository.GetTreatments(),
-                Test = CurrentPage.Test
+                MainContentArea = CurrentPage.MainContentArea
             };
 
 

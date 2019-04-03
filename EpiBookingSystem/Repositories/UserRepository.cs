@@ -31,7 +31,7 @@ namespace EpiBookingSystem.Repositories
 
 
         }
-        public async Task CreateUser(AuthenticateViewModel model, IAuthenticationManager authenticationManager)
+        public async Task CreateUser(RegisterViewModel model, IAuthenticationManager authenticationManager)
         {
             var user = new IdentityUser { Id = Guid.NewGuid().ToString(), UserName = model.Username, Email = model.Email };
 
@@ -48,7 +48,7 @@ namespace EpiBookingSystem.Repositories
            
         }
 
-        public async Task<SignInStatus> LogIn(AuthenticateViewModel model, IAuthenticationManager authenticationManager)
+        public async Task<SignInStatus> LogIn(LoginViewModel model, IAuthenticationManager authenticationManager)
         {
             
             var signInManager = new SignInManager<IdentityUser, string>

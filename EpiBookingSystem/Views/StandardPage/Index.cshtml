@@ -4,6 +4,7 @@
 @using EPiServer.Core;
 @using EPiServer.ServiceLocation;
 @using EPiServer;
+@using System.Globalization;
 @model StandardPageViewModel
 
 @{ var userName = System.Web.HttpContext.Current.User.Identity.Name; }
@@ -22,69 +23,31 @@
 else
 {
     <div>
-        @Html.PropertyFor(x => x.Test, new { CssClass = "row" })
-    </div>
-
-    @*<div class="col-lg-8">
-            <h2>Boka behandling:</h2>
-            @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
-            {
-
-                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "form-control" })
-
-
-                <div class='input-group date' id='datetimepicker'>
-                    <input type='text' class="form-control" name="Date" />
-                    <span class="input-group-addon">
-                        Välj datum här
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-
-                </div>
-
-                <input type="submit" class="" value="Boka" />
-
-            }
-
-
-        </div>*@
-
-
-
-
-
-
-
-
-    <div class="col-lg-4" style="float: right;">
-        <h2>Dina bokningar:</h2>
-        @foreach (var item in Model.Appointments)
-        {
-
-            <h3>@item.Treatment.Name</h3>
-            <p>@item.Date.ToString("MM/dd/yyyy HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
-            <p>@item.Treatment.Description</p>
-
-        }
+        @Html.PropertyFor(x => x.MainContentArea, new { CssClass = "row" })
     </div>
 }
 
 
-<script type="text/javascript">
+@{
+    var test = "2019-04-03 10:00";
+    var test2 = "2019-04-03 13:00";
+    var date1 = DateTime.ParseExact(test, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+    var date2 = DateTime.ParseExact(test2, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
 
 
-    $(document).on('dp.show', function (e) {
+    var list = new List<DateTime>();
+    list.Add(date1);
+    list.Add(date2);
 
-    });
+    DateTime[,] tess;
 
-    $(function () {
-        $('#datetimepicker').datetimepicker({
-            daysOfWeekDisabled: [0, 6],
-            sideBySide: true,
-            stepping: 15
+    foreach (var item in list)
+    {
+        var first = item.AddHours(-1);
+        var second = item.AddHours(1);
 
+        DateTime[] arr = new DateTime[] { first, second };
 
-
-        })
-    });
-</script>
+        tess = new DateTime[,] { { first, second } };
+    }
+}

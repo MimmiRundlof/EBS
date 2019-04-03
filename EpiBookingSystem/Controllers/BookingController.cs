@@ -32,14 +32,30 @@ namespace EpiBookingSystem.Controllers
             return RedirectToAction("Index", "StandardPage");
         }
         [HttpPost]
-        public ActionResult BookAppointment(StandardPageViewModel model)
+        public ActionResult BookAppointment(BookAppointmentBlockViewModel model)
         {
             if(ModelState.IsValid)
-            { 
-            var userId = User.Identity.GetUserId();
-            _repository.BookAppointment(model.TreatmentId, userId , model.Date);
+            {
+                var isNotAvailable = _repository.GetAllAppointments().Any(x => x.Date.ToString().Equals(model.Date.ToString()));
+                if(isNotAvailable)
+                {
+                    ModelState.AddModelError("DateTimeNotAvailable", "Tiden är bokad, välj en annan.");
 
-            return RedirectToAction("Index", "StandardPage");
+
+                    model.Treatments = _repository.GetTreatments();
+                                       
+                    return RedirectToAction("Index","StandardPage");
+                }
+                else
+                {
+
+                    var userId = User.Identity.GetUserId();
+                    _repository.BookAppointment(model.TreatmentId, userId, model.Date);
+
+                    return RedirectToAction("Index", "StandardPage");
+
+                }
+
             }
             else
             {
