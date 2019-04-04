@@ -23,6 +23,17 @@ namespace EpiBookingSystem.Controllers
             _repository = repository;
 
         }
+        
+        public ActionResult AddTreatment(StandardPageViewModel model)
+        {
+            if (!User.IsInRole("Admin"))
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            _repository.AddTreatment(model.Treatment, model.Description);
+
+            return RedirectToAction("Index", "StandardPage");
+        }
 
         public ActionResult CancelAppointment(int appointmentId)
         {

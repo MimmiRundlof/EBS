@@ -46,7 +46,7 @@ namespace EpiBookingSystem.Controllers
 
         }
 
-        public ActionResult Index(StandardPage currentPage)
+        public ActionResult Index()
         {
 
 
@@ -59,7 +59,9 @@ namespace EpiBookingSystem.Controllers
 
             var model = new StandardPageViewModel()            
             {
-                MainContentArea = CurrentPage.MainContentArea
+                CurrentPage = CurrentPage,
+                Appointments = _repository.GetAllAppointments()
+
             };
 
 

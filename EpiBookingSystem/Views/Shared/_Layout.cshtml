@@ -9,6 +9,7 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/scripts/moment.min.js"></script>
     <script src="~/Static/js/bootstrap.js"></script>
@@ -19,34 +20,39 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Capio Ögon", "Index", "StandardPage", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-                <div style="float:right; color:white;">
-                    @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
-                    {
-                        <h4>Hej @userName!</h4>
-                        @Html.ActionLink("Logga ut", "LogOut", "Account")
-                    }
-                </div>
+
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+
+            @Html.ActionLink("Capio Ögon", "Index", "StandardPage", new { area = "" }, new { @class = "pure-menu-heading" })
+            
+            <ul class="pure-menu-list">
+                @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
+                {
+
+                    <li class="pure-menu-item">@Html.ActionLink("Logga ut", "LogOut", "Account")</li>
+                }
+                else
+                {
+                    <li class="pure-menu-item">
+                        @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                    <li class="pure-menu-item">
+                        @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                    </li>
+                }
+            </ul>
             </div>
         </div>
-    </div>
+    
 
-    <div class="container body-content">
-        @RenderBody()
 
-        <footer></footer>
-    </div>
+    <div class="splash-container">
+        <div class="splash">
+            @RenderBody()
+
+            <footer></footer>
+        </div></div>
 
 
 

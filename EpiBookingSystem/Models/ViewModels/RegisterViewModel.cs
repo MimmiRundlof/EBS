@@ -12,27 +12,24 @@ namespace EpiBookingSystem.Models.ViewModels
         public string AuthenticationType { get; set; }
 
 
-        [Required]
-        [Display(Name = "Username")]
-        [RegularExpression(@"^[a-zA-Z0-9_-]+$", ErrorMessage = "Username can only contain letters a-z, numbers, underscores and hyphens.")]
-        [StringLength(20, ErrorMessage = "The {0} field can not be more than {1} characters long.")]
+        [Required(ErrorMessage ="Ange ett användarnamn.")]
+        [Display(Name = "Användarnamn")]
         public string Username { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Ange en mailadress.")]
+        [EmailAddress(ErrorMessage ="Ange en riktig mailadress.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "Ange ett lösenord.")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lösenord")]
         [AllowHtml]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Bekräfta lösenord.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Lösenorden stämmer inte överrens.")]
         [AllowHtml]
         public string ConfirmPassword { get; set; }
     }

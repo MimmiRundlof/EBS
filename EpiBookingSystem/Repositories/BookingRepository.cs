@@ -5,6 +5,7 @@ using EPiServer.ServiceLocation;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,18 @@ namespace EpiBookingSystem.Repositories
         {
             _context = context;
 
+        }
+
+        public void AddTreatment(string name, string description)
+        {
+            var treatment = new Treatment()
+            {
+                Name = name,
+                Description = description
+            };
+
+            _context.Treatment.Add(treatment);
+            _context.SaveChanges();
         }
 
         public void BookAppointment(int treatmentId, string userId, DateTime date)
@@ -43,7 +56,7 @@ namespace EpiBookingSystem.Repositories
 
         public List<Appointment> GetAllAppointments()
         {
-            var appointments = _context.Appointment.Include("Treatment").ToList();
+            var appointments = _context.Appointment.Include(t=>t.Treatment).Include(c=> c.Customer).ToList();
 
             return appointments;
         }
@@ -51,7 +64,7 @@ namespace EpiBookingSystem.Repositories
 
         public List<Appointment> GetAppointments(string userId)
         {
-            var appointments = _context.Appointment.Include("Treatment").Where(x => x.Customer.Id == userId).ToList();
+            var appointments = _context.Appointment.Include(t=> t.Treatment).Where(x => x.Customer.Id == userId).ToList();
 
             return appointments;
 

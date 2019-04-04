@@ -19,6 +19,13 @@ namespace EpiBookingSystem.Models.Pages
             Order = 1)]
         public virtual ContentArea MainContentArea { get; set; }
 
+        [CultureSpecific]
+        [Display(
+            Name = "MainBody",
+            Description = "", 
+            GroupName = SystemTabNames.Content, 
+            Order = 2)]
+        public virtual XhtmlString MainBody { get; set; }
 
 
     }

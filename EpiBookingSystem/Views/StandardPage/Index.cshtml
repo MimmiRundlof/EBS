@@ -18,36 +18,44 @@
 @if (User.IsInRole("Admin"))
 {
 
-    <h2>adminvy</h2>
+<div>
+    <h3>Bokningar:</h3>
+    @foreach (var item in Model.Appointments)
+    {
+
+        <p>Behandling: @item.Treatment.Name </p>
+        <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
+        <p>Kund: @item.Customer.UserName</p>
+        @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+        <hr />
+
+    }
+</div>
+<div>
+    @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post))
+    {
+        <div class="control-group">
+            @Html.LabelFor(m => m.Treatment)
+            @Html.TextBoxFor(m => m.Treatment)
+            @Html.ValidationMessageFor(m => m.Treatment)
+        </div>
+        <div class="control-group">
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+        <div class="control-group">
+            <input type="submit" class="" value="Lägg till behandling" />
+        </div>
+    }
+
+</div>
 }
 else
 {
     <div>
-        @Html.PropertyFor(x => x.MainContentArea, new { CssClass = "row" })
+        @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row" })
     </div>
+    <div>@Html.DisplayFor(x => x.CurrentPage.MainBody)</div>
 }
 
-
-@{
-    var test = "2019-04-03 10:00";
-    var test2 = "2019-04-03 13:00";
-    var date1 = DateTime.ParseExact(test, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-    var date2 = DateTime.ParseExact(test2, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-
-
-    var list = new List<DateTime>();
-    list.Add(date1);
-    list.Add(date2);
-
-    DateTime[,] tess;
-
-    foreach (var item in list)
-    {
-        var first = item.AddHours(-1);
-        var second = item.AddHours(1);
-
-        DateTime[] arr = new DateTime[] { first, second };
-
-        tess = new DateTime[,] { { first, second } };
-    }
-}

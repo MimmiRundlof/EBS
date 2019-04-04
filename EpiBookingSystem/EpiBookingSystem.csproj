@@ -310,8 +310,6 @@
     <Compile Include="Models\Treatment.cs" />
     <Compile Include="Models\ViewModels\ListAppointmentsBlockViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\IPageViewModel.cs" />
-    <Compile Include="Models\ViewModels\PageViewModel.cs" />
     <Compile Include="Models\ViewModels\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModels\StandardPageViewModel.cs" />
     <Compile Include="Models\ViewModels\BookAppointmentBlockViewModel.cs" />

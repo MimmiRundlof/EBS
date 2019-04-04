@@ -17,6 +17,8 @@ namespace EpiBookingSystem.Repositories
         List<Appointment> GetAllAppointments();
         List<Appointment> GetAppointments(string userId);
         IEnumerable<SelectListItem> GetTreatments();
+        void AddTreatment(string name, string description);
+
 
     }
 }

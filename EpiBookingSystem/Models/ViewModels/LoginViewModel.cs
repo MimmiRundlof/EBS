@@ -14,13 +14,13 @@ namespace EpiBookingSystem.Models.ViewModels
 
 
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Användarnamn")]
         public string Username { get; set; }
 
         
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Lösenord")]
         [AllowHtml]
         public string Password { get; set; }
 

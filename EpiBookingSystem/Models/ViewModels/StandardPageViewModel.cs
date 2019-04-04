@@ -11,9 +11,16 @@ namespace EpiBookingSystem.Models.ViewModels
 {
     public class StandardPageViewModel
     {
+        public StandardPage CurrentPage { get; set; }
 
+        public List<Appointment> Appointments { get; set; }
 
-        public ContentArea MainContentArea { get; set; }
+        [Display(Name ="Namn på behandling")]
+        public string Treatment { get; set; }
+
+        [Display(Name = "Beskrivning")]
+        public string Description { get; set; }
+
 
     }
 }
