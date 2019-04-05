@@ -7,37 +7,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="authenticate-container">
+    <div class="pure-u">
+        <h2 class="brand-tagline">Skapa konto</h2>
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "pure-form align-center" }))
+        {
 
-                    <h3>Skapa konto</h3>
+            <fieldset class="pure-group">
+                @Html.TextBoxFor(m => m.Username, new { placeholder = "Användarnamn", @class = "pure-input-1-1" })
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "Mailadress", @class = "pure-input-1-1" })
+                @Html.PasswordFor(m => m.Password, new { placeholder = "Lösenord", @class = "pure-input-1-1" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "Bekräfta lösenord", @class = "pure-input-1-1" })
 
-                    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="control-group">
-                            @Html.LabelFor(m => m.Username)
-                            @Html.TextBoxFor(m => m.Username)
-                            @Html.ValidationMessageFor(m => m.Username)
-                        </div>
-                        <div class="control-group">
-                            @Html.LabelFor(m => m.Email)
-                            @Html.TextBoxFor(m => m.Email)
-                            @Html.ValidationMessageFor(m => m.Email)
-                        </div>
-                        <div class="control-group">
-                            @Html.LabelFor(m => m.Password)
-                            @Html.PasswordFor(m => m.Password)
-                            @Html.ValidationMessageFor(m => m.Password)
-                        </div>
-                        <div class="control-group">
-                            @Html.LabelFor(m => m.ConfirmPassword)
-                            @Html.PasswordFor(m => m.ConfirmPassword)
-                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-                        </div>
-                        <div class="control-group">
+                @Html.ValidationSummary(false, "", new { @class = "pure-form-message-inline" })
+                <div class="pure-control-group">
 
-                        </div>
-                        <div class="control-group">
-                            <input type="submit" class="" value="Registrera" />
-                        </div>
-                    }
-               
+                </div>
+                <div class="pure-control-group">
+                    <input type="submit" class="pure-button pure-button-primary authenticate-button" value="Skapa konto" />
+                </div>
+
+            </fieldset>
+
+        }
+
+
+
+    </div>
+    </div>

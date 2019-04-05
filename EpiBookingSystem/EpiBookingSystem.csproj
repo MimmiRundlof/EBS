@@ -401,6 +401,7 @@
     <Content Include="Static\gfx\searchbuttonsmall.png" />
     <Content Include="Static\gfx\track.jpg" />
     <Content Include="Static\html\error.htm" />
+    <Content Include="Static\img\capioogon.PNG" />
     <Content Include="Static\img\glyphicons-halflings-white.png" />
     <Content Include="Static\img\glyphicons-halflings.png" />
     <Content Include="Static\js\bootstrap.js" />

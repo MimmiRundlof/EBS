@@ -16,3 +16,33 @@ textarea {
     max-width: 280px;
 }
 
+.header{
+    text-align: center;
+    
+}
+
+
+.authenticate-button {
+    margin: auto;
+    width: 100%;
+}
+
+.authenticate-container {
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    display: block;
+}
+
+
+.align-center > * {
+    display: inline-block;
+    margin: 0 auto;
+    max-width:200px;
+}
+
+.content {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 20px;
+}

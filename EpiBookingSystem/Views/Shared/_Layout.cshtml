@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Capio Ögon Bokningssystem</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -22,9 +22,12 @@
 <body>
 
     <div class="header">
-        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+        <div class="home-menu pure-menu pure-menu-horizontal">
 
-            @Html.ActionLink("Capio Ögon", "Index", "StandardPage", new { area = "" }, new { @class = "pure-menu-heading" })
+            
+                <a href='@Url.Action("Index", "StandardPage")'>
+                    <img src='@Url.Content("~/Static/img/capioogon.PNG")' />
+                </a><br />
             
             <ul class="pure-menu-list">
                 @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
@@ -35,20 +38,20 @@
                 else
                 {
                     <li class="pure-menu-item">
-                        @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "" }) |
                     </li>
                     <li class="pure-menu-item">
-                        @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "navbar-brand" })
+                        @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "" })
                     </li>
                 }
             </ul>
-            </div>
+        </div>
         </div>
     
 
 
     <div class="splash-container">
-        <div class="splash">
+        <div class="splash content">
             @RenderBody()
 
             <footer></footer>
