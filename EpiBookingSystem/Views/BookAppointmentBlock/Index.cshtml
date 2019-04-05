@@ -2,41 +2,52 @@
 @using EPiServer.Web.Mvc.Html
 @model EpiBookingSystem.Models.ViewModels.BookAppointmentBlockViewModel
 
-<div class="col-lg-5">
-    <h2>Boka behandling:</h2>
-    @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post))
-    {
 
-        @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "form-control" })
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+<div class="pure-g">
 
 
-        <div class='input-group date' id='datetimepicker'>
-            <input type='text' class="form-control" name="Date" />
-            <span class="input-group-addon">
-                Välj datum här
-                <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-
-        </div>
-        if (User.IsInRole("WebAdmins"))
+    <div class="pure-u-1-2" style="background-color:#f7f0c8; padding:20px; border-radius:15px;">
+        <h3>Boka behandling:</h3>
+        @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post, new { @class = "pure-form" }))
         {
-            <input type="submit" id="bookAppointmentButton" class="" value="Boka" disabled />
+            <fieldset class="pure-group">
 
+                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "pure-input-1-1" })
+
+
+                <div class='input-group date' id='datetimepicker'>
+                    <input type='text' name="Date" />
+                    <span class="input-group-addon pure-u-1-1">
+                        Välj datum här
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+
+                </div>
+                <div class="pure-control-group pure-u-2-5">
+
+                    @if (User.IsInRole("WebAdmins"))
+                    {
+                        <input type="submit" class="pure-button pure-button-primary" value="Boka" disabled />
+
+                    }
+                    else
+                    {
+                        <input type="submit" class="pure-button pure-button-primary" value="Boka" />
+
+                    }
+                </div>
+
+                @Html.ValidationMessage("DateTimeNotAvailable")
+
+            </fieldset>
         }
-        else
-        {
-            <input type="submit" id="bookAppointmentButton" class="" value="Boka" />
-
-        }
-
-        @Html.ValidationMessage("DateTimeNotAvailable");
-    }
 
 
-</div>
+    </div>
+    </div>
 
-
-<script>
+    <script>
 
         var arr = @Html.Raw(Json.Encode(Model.BookedDates));
 
@@ -54,4 +65,4 @@
         disabledTimeIntervals: arr
     });
 
-</script>
+    </script>

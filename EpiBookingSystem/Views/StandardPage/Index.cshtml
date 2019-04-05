@@ -18,44 +18,49 @@
 @if (User.IsInRole("Admin"))
 {
 
-<div>
-    <h3>Bokningar:</h3>
-    @foreach (var item in Model.Appointments)
-    {
+    <div>
+        <h3>Bokningar:</h3>
+        @foreach (var item in Model.Appointments)
+        {
 
-        <p>Behandling: @item.Treatment.Name </p>
-        <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
-        <p>Kund: @item.Customer.UserName</p>
-        @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
-        <hr />
+            <p>Behandling: @item.Treatment.Name </p>
+            <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
+            <p>Kund: @item.Customer.UserName</p>
+            @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+            <hr />
 
-    }
-</div>
-<div>
-    @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post))
-    {
-        <div class="control-group">
-            @Html.LabelFor(m => m.Treatment)
-            @Html.TextBoxFor(m => m.Treatment)
-            @Html.ValidationMessageFor(m => m.Treatment)
-        </div>
-        <div class="control-group">
-            @Html.LabelFor(m => m.Description)
-            @Html.TextBoxFor(m => m.Description)
-            @Html.ValidationMessageFor(m => m.Description)
-        </div>
-        <div class="control-group">
-            <input type="submit" class="" value="Lägg till behandling" />
-        </div>
-    }
+        }
+    </div>
+    <div>
+        @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post))
+        {
+            <div class="control-group">
+                @Html.LabelFor(m => m.Treatment)
+                @Html.TextBoxFor(m => m.Treatment)
+                @Html.ValidationMessageFor(m => m.Treatment)
+            </div>
+            <div class="control-group">
+                @Html.LabelFor(m => m.Description)
+                @Html.TextBoxFor(m => m.Description)
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+            <div class="control-group">
+                <input type="submit" class="" value="Lägg till behandling" />
+            </div>
+        }
 
-</div>
+    </div>
 }
 else
 {
-    <div>
-        @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row" })
-    </div>
-    <div>@Html.DisplayFor(x => x.CurrentPage.MainBody)</div>
-}
+    
+    <div class="pure-g">
+        <div class="pure-u center-align-content">
+
+            @Html.DisplayFor(x => x.CurrentPage.MainBody)</div>
+        </div>
+        @Html.PropertyFor(x => x.CurrentPage.MainContentArea)
+
+
+        }
 
