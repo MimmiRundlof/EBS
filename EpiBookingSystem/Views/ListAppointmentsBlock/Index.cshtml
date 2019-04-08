@@ -2,14 +2,18 @@
 @using EPiServer.Web.Mvc.Html
 @model ListAppointmentsBlockViewModel
 
-<div class="col-lg-4" style="float: right;">
-    <h2>Dina bokningar:</h2>
-    @foreach (var item in Model.Appointments)
-    {
 
-        <h3>@item.Treatment.Name</h3>
-        <p>@item.Date.ToString("yyyy/MM/dd HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
-        <p>@item.Treatment.Description</p>
 
-    }
-</div>
+    <div class="pure-u-1-2 list-appointments-block">
+        <h3 class="content-head">Dina bokningar</h3>
+        <hr />
+        @foreach (var item in Model.Appointments.OrderByDescending(x=>x.Date))
+        {
+
+            <h5>@item.Treatment.Name</h5>
+            <p>@item.Date.ToString("yyyy/MM/dd HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
+            <p>@item.Treatment.Description</p>
+            <hr />
+        }
+    </div>
+

@@ -1,6 +1,7 @@
 ﻿using EpiBookingSystem.Models;
 using EpiBookingSystem.Models.ViewModels;
 using EpiBookingSystem.Repositories;
+using EPiServer.Framework.Localization;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System;
@@ -26,7 +27,7 @@ namespace EpiBookingSystem.Controllers
         
         public ActionResult AddTreatment(StandardPageViewModel model)
         {
-            if (!User.IsInRole("Admin"))
+            if (!User.IsInRole(LocalizationService.Current.GetString("/adminrole")))
             {
                 return RedirectToAction("LogIn", "Account");
             }
@@ -42,38 +43,7 @@ namespace EpiBookingSystem.Controllers
 
             return RedirectToAction("Index", "StandardPage");
         }
-        [HttpPost]
-        public ActionResult BookAppointment(BookAppointmentBlockViewModel model)
-        {
-            if(ModelState.IsValid)
-            {
-                var isNotAvailable = _repository.GetAllAppointments().Any(x => x.Date.ToString().Equals(model.Date.ToString()));
-                if(isNotAvailable)
-                {
-                    ModelState.AddModelError("DateTimeNotAvailable", "Tiden är bokad, välj en annan.");
-
-
-                    model.Treatments = _repository.GetTreatments();
-                                       
-                    return RedirectToAction("Index","StandardPage");
-                }
-                else
-                {
-
-                    var userId = User.Identity.GetUserId();
-                    _repository.BookAppointment(model.TreatmentId, userId, model.Date);
-
-                    return RedirectToAction("Index", "StandardPage");
-
-                }
-
-            }
-            else
-            {
-                
-                return RedirectToAction("Index", "StandardPage", model);
-            }
-        }
+       
 
     }
 }

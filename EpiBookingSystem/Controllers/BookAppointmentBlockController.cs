@@ -10,8 +10,10 @@ using EpiBookingSystem.Models.ViewModels;
 using EpiBookingSystem.Repositories;
 using EPiServer;
 using EPiServer.Core;
+using EPiServer.Framework.Localization;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace EpiBookingSystem.Controllers
 {
@@ -65,6 +67,39 @@ namespace EpiBookingSystem.Controllers
 
             };
             return model;
+        }
+
+        [HttpPost]
+        public ActionResult BookAppointment(BookAppointmentBlockViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var isNotAvailable = _repository.GetAllAppointments().Any(x => x.Date.ToString().Equals(model.Date.ToString()));
+                if (isNotAvailable)
+                {
+                    ModelState.AddModelError("DateTimeNotAvailable", LocalizationService.Current.GetString("/bookingerrormessage"));
+
+
+                    model.Treatments = _repository.GetTreatments();
+
+                    return RedirectToAction("Index", "StandardPage");
+                }
+                else
+                {
+
+                    var userId = User.Identity.GetUserId();
+                    _repository.BookAppointment(model.TreatmentId, userId, model.Date);
+
+                    return RedirectToAction("Index", "StandardPage");
+
+                }
+
+            }
+            else
+            {
+
+                return RedirectToAction("Index", "StandardPage", model);
+            }
         }
     }
 }

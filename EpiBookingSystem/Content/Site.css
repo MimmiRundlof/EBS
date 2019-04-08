@@ -1,13 +1,13 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
-    
+    padding-bottom: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -17,9 +17,8 @@ textarea {
     max-width: 280px;
 }
 
-.header{
+.header {
     text-align: center;
-    
 }
 
 
@@ -39,16 +38,71 @@ textarea {
 .align-center > * {
     display: inline-block;
     margin: 0 auto;
-    max-width:200px;
+    max-width: 200px;
+}
+
+.header-padding {
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 .content {
     padding-left: 100px;
     padding-right: 100px;
-    padding-top: 20px;
+    padding-top: 30px;
 }
 
-.center-align-content{
-    width: 70%;
+.center-align-content {
+    width: 70% !important;
     margin: 0 auto;
+}
+.list-appointments-block {
+    padding: 20px;
+    float: right;
+    display: block;
+    
+}
+.book-appointment-block {
+    background-color: #f7f0c8;
+    padding: 3% 3% 3% 8%;
+    border-radius: 15px;
+    display:block;
+    float: left;
+    
+}
+
+.book-button {
+    background-color: #fa8254 !important;
+    color: black !important;
+    border-radius: 100px !important;
+    padding: 10px 30px !important;
+    text-transform:uppercase;
+}
+
+
+
+
+#TreatmentId, .input-group-addon {
+    height: 38px;
+
+}
+
+.input-group-addon {
+    border-left: 1px solid #ccc !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+.input-spacer{
+
+    margin-bottom:20px;
+}
+
+.logout-link {
+    text-align: right;
+}
+
+
+.test {
+    border-left: 1px !important;
 }

@@ -1,6 +1,7 @@
 ﻿using EpiBookingSystem.Models.ViewModels;
 using EpiBookingSystem.Repositories;
 using EPiServer.Data;
+using EPiServer.Framework.Localization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -43,7 +44,7 @@ namespace EpiBookingSystem.Controllers
 
         public ActionResult LogIn()
         {
-            if (User.IsInRole("User") || User.IsInRole("Admin"))
+            if (User.IsInRole(LocalizationService.Current.GetString("/userrole")) || User.IsInRole(LocalizationService.Current.GetString("/adminrole")))
             {
                 return RedirectToAction("Index", "StandardPage");
             }
@@ -62,20 +63,20 @@ namespace EpiBookingSystem.Controllers
             {
 
                 var result = await _userRepository.LogIn(model, AuthenticationManager);
-                if (result.ToString() == "Success")
+                if (result.ToString() == LocalizationService.Current.GetString("/successvalidationmessage"))
                 {
                     return RedirectToAction("Index", "StandardPage");
 
                 }
 
             }
-            ModelState.AddModelError("LogInError", "Användarnamnet eller lösenordet stämmer inte.");
+            ModelState.AddModelError("LogInError", LocalizationService.Current.GetString("/loginerrormessage"));
             return View("LogIn", model);
 
         }
         public ActionResult Register()
         {
-            if (User.IsInRole("User") || User.IsInRole("Admin"))
+            if (User.IsInRole(LocalizationService.Current.GetString("/userrole")) || User.IsInRole(LocalizationService.Current.GetString("/adminrole")))
             {
                 return RedirectToAction("Index", "StandardPage");
             }

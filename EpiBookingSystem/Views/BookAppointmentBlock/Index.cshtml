@@ -3,22 +3,18 @@
 @model EpiBookingSystem.Models.ViewModels.BookAppointmentBlockViewModel
 
 
-<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
-<div class="pure-g">
-
-
-    <div class="pure-u-1-2" style="background-color:#f7f0c8; padding:20px; border-radius:15px;">
-        <h3>Boka behandling:</h3>
-        @using (Html.BeginForm("BookAppointment", "Booking", FormMethod.Post, new { @class = "pure-form" }))
+    <div class="pure-u-1-2 book-appointment-block">
+        <h2 class="brand-tagline">Boka behandling</h2>
+        @using (Html.BeginForm("BookAppointment", "BookAppointmentBlock", FormMethod.Post, new { @class = "pure-form" }))
         {
             <fieldset class="pure-group">
 
-                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "pure-input-1-1" })
+                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "pure-input-1-1 input-spacer" })
 
 
                 <div class='input-group date' id='datetimepicker'>
                     <input type='text' name="Date" />
-                    <span class="input-group-addon pure-u-1-1">
+                    <span class="input-group-addon pure-u-1-1 input-spacer">
                         Välj datum här
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -28,12 +24,12 @@
 
                     @if (User.IsInRole("WebAdmins"))
                     {
-                        <input type="submit" class="pure-button pure-button-primary" value="Boka" disabled />
+                        <input type="submit" class="pure-button pure-button-primary book-button" value="Boka" disabled />
 
                     }
                     else
                     {
-                        <input type="submit" class="pure-button pure-button-primary" value="Boka" />
+                        <input type="submit" class="pure-button pure-button-primary book-button" value="Boka" />
 
                     }
                 </div>
@@ -45,7 +41,7 @@
 
 
     </div>
-    </div>
+    
 
     <script>
 
@@ -63,6 +59,7 @@
         sideBySide: true,
         stepping: 60,
         disabledTimeIntervals: arr
+
     });
 
     </script>

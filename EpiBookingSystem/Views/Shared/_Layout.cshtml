@@ -21,31 +21,32 @@
 </head>
 <body>
 
-    <div class="header">
+    <div class="header header-padding">
         <div class="home-menu pure-menu pure-menu-horizontal">
+            <div class="logout-link">
+                <ul class="pure-menu-list">
+                    @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
+                    {
 
-            
-                <a href='@Url.Action("Index", "StandardPage")'>
-                    <img src='@Url.Content("~/Static/img/capioogon.PNG")' />
-                </a><br />
-            
-            <ul class="pure-menu-list">
-                @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
-                {
+                        <li class="pure-menu-item">@Html.ActionLink("Logga ut", "LogOut", "Account")</li>
+                    }
+                    else
+                    {
+                        <li class="pure-menu-item">
+                            @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "" }) |
+                        </li>
+                        <li class="pure-menu-item">
+                            @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "" })
+                        </li>
+                    }
+                </ul>
+            </div>
 
-                    <li class="pure-menu-item">@Html.ActionLink("Logga ut", "LogOut", "Account")</li>
-                }
-                else
-                {
-                    <li class="pure-menu-item">
-                        @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "" }) |
-                    </li>
-                    <li class="pure-menu-item">
-                        @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "" })
-                    </li>
-                }
-            </ul>
+            <a href='@Url.Action("Index", "StandardPage")'>
+                <img src='@Url.Content("~/Static/img/capioogon.PNG")' />
+            </a>
         </div>
+        <hr />
         </div>
     
 

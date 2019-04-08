@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<languages>
+  <language name="English" id="en">
+    <loginerrormessage>Användarnamnet eller lösenordet stämmer inte.</loginerrormessage>
+    <adminrole>Admin</adminrole>
+    <userrole>User</userrole>
+    <successvalidationmessage>Success</successvalidationmessage>
+    <bookingerrormessage>Tiden är bokad, välj en annan.</bookingerrormessage>
+    <authentication>
+      <username>Användarnamn</username>
+      <password>Lösenord</password>
+      <email>Email</email>
+    </authentication>
+  </language>
+</languages>
