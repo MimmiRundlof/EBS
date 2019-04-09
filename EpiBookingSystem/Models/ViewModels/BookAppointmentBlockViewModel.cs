@@ -8,13 +8,7 @@ using System.Web.Mvc;
 namespace EpiBookingSystem.Models.ViewModels
 {
     public class BookAppointmentBlockViewModel
-    {
-        public BookAppointmentBlockViewModel()
-        {
-
-            this.Date = DateTime.Now;
-        }
-
+    {    
         public List<Array> BookedDates { get; set; }
 
         public IEnumerable<SelectListItem> Treatments { get; set; }

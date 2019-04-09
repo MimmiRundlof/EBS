@@ -23,7 +23,7 @@
 
     <div class="header header-padding">
         <div class="home-menu pure-menu pure-menu-horizontal">
-            <div class="logout-link">
+            <div class="header-links">
                 <ul class="pure-menu-list">
                     @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
                     {

@@ -35,7 +35,7 @@
 
             }
         </div>
-        <div class="pure-u-1-5 add-treatment">
+        <div class="pure-u-2-5 add-treatment">
             <h4>Lägg till behandling</h4>
             @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post, new { @class = "pure-form pure-form-stacked" }))
             {
@@ -49,17 +49,16 @@
 
 
             }
+            <h5>Behandlingar:</h5>
+                @foreach (var item in Model.Treatments)
+                {<p>@item.Text @Html.ActionLink("Ta bort behandling", "DeleteTreatment", "Booking", new { treatmentId = item.Value }, null)</p>
+                
 
+            }
+            
         </div>
     </div>
-    <div>
-        @foreach (var item in Model.Treatments)
-        {
-            <p>@item.Text</p>
-            @Html.ActionLink("Ta bort", "DeleteTreatment", "Booking", new { treatmentId = item.Value }, null)
 
-        }
-    </div>
 }
 else
 {

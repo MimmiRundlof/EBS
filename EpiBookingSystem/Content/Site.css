@@ -104,11 +104,6 @@ textarea {
     width:1000px;
 }
 
-.logout-link {
+.header-links {
     text-align: right;
-}
-
-
-.test {
-    border-left: 1px !important;
 }
