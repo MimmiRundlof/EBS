@@ -73,12 +73,12 @@ textarea {
     float: left;
 }
 
-.book-button {
+.book-button, .authenticate-button {
     background-color: #fa8254 !important;
     color: black !important;
     border-radius: 100px !important;
     padding: 10px 30px !important;
-    text-transform:uppercase;
+    text-transform: uppercase;
 }
 
 

@@ -22,6 +22,16 @@ namespace EpiBookingSystem.Repositories
 
         }
 
+
+        public void DeleteTreatment(string treatmentId)
+        {
+
+            var treatment = _context.Treatment.SingleOrDefault(x => x.TreatmentId.ToString() == treatmentId);
+            _context.Appointment.RemoveRange(_context.Appointment.Where(x => x.Treatment.TreatmentId.ToString() == treatmentId));
+            _context.Treatment.Remove(treatment);
+            _context.SaveChanges();
+        }
+
         public void AddTreatment(string name, string description)
         {
             var treatment = new Treatment()
