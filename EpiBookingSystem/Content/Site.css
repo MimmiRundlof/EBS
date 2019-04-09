@@ -62,13 +62,15 @@ textarea {
     display: block;
     
 }
+.add-treatment{
+    padding:20px;
+}
 .book-appointment-block {
     background-color: #f7f0c8;
-    padding: 3% 3% 3% 8%;
+    padding: 3% 3% 3% 7%;
     border-radius: 15px;
-    display:block;
+    display: block;
     float: left;
-    
 }
 
 .book-button {
@@ -95,7 +97,11 @@ textarea {
 
 .input-spacer{
 
-    margin-bottom:20px;
+    margin-bottom:20px !important;
+}
+
+.add-treatment textarea{
+    width:1000px;
 }
 
 .logout-link {

@@ -97,7 +97,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
-
+                
                 return RedirectToAction("Index", "StandardPage", model);
             }
         }

@@ -15,40 +15,42 @@
 }
 
 
+
+
+
 @if (User.IsInRole("Admin"))
 {
-
-    <div>
-        <h3>Bokningar:</h3>
-        @foreach (var item in Model.Appointments)
-        {
-
-            <p>Behandling: @item.Treatment.Name </p>
-            <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
-            <p>Kund: @item.Customer.UserName</p>
-            @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+    <div class="pure-g">
+        <div class="pure-u-3-5">
+            <h4>Bokningar:</h4>
             <hr />
+            @foreach (var item in Model.Appointments.OrderByDescending(x => x.Date))
+            {
 
-        }
-    </div>
-    <div>
-        @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post))
-        {
-            <div class="control-group">
-                @Html.LabelFor(m => m.Treatment)
-                @Html.TextBoxFor(m => m.Treatment)
-                @Html.ValidationMessageFor(m => m.Treatment)
-            </div>
-            <div class="control-group">
-                @Html.LabelFor(m => m.Description)
-                @Html.TextBoxFor(m => m.Description)
-                @Html.ValidationMessageFor(m => m.Description)
-            </div>
-            <div class="control-group">
-                <input type="submit" class="" value="Lägg till behandling" />
-            </div>
-        }
+                <p>Behandling: @item.Treatment.Name </p>
+                <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
+                <p>Kund: @item.Customer.UserName</p>
+                @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+                <hr />
 
+            }
+        </div>
+        <div class="pure-u-1-5 add-treatment">
+            <h4>Lägg till behandling</h4>
+            @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post, new { @class = "pure-form pure-form-stacked" }))
+            {
+                <fieldset>
+                    @Html.TextBoxFor(m => m.Treatment, new { placeholder = "Behandling", @class = "pure-input-1-1 input-spacer" })
+                    @Html.TextAreaFor(m => m.Description, new { placeholder = "Beskrivning", @class = "pure-input-1-1 input-spacer" })
+                    <input type="submit" class="pure-button pure-button-primary" value="Lägg till behandling" />
+                </fieldset>
+
+
+
+
+            }
+
+        </div>
     </div>
 }
 else
@@ -61,9 +63,9 @@ else
             <hr />
         </div>
         <div class="pure-u-1">
-            
-                @Html.PropertyFor(x => x.CurrentPage.MainContentArea)
-            
+
+            @Html.PropertyFor(x => x.CurrentPage.MainContentArea)
+
         </div>
     </div>
 

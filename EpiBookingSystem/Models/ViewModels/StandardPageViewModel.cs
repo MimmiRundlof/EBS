@@ -21,6 +21,8 @@ namespace EpiBookingSystem.Models.ViewModels
         [Display(Name = "Beskrivning")]
         public string Description { get; set; }
 
+        
+
 
     }
 }
