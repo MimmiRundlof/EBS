@@ -60,7 +60,8 @@ namespace EpiBookingSystem.Controllers
             var model = new StandardPageViewModel()            
             {
                 CurrentPage = CurrentPage,
-                Appointments = _repository.GetAllAppointments()
+                Appointments = _repository.GetAllAppointments(),
+                Treatments = _repository.GetTreatments()
 
             };
 

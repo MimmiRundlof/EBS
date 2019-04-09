@@ -15,6 +15,9 @@ namespace EpiBookingSystem.Models.ViewModels
 
         public List<Appointment> Appointments { get; set; }
 
+        public IEnumerable<SelectListItem> Treatments { get; set; }
+
+
         [Display(Name ="Namn på behandling")]
         public string Treatment { get; set; }
 

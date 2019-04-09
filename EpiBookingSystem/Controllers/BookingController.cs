@@ -24,7 +24,17 @@ namespace EpiBookingSystem.Controllers
             _repository = repository;
 
         }
-        
+        public ActionResult DeleteTreatment(string treatmentId)
+        {
+            if (!User.IsInRole(LocalizationService.Current.GetString("/adminrole")))
+            {
+                return RedirectToAction("LogIn", "Account");
+            }
+            _repository.DeleteTreatment(treatmentId);
+
+            return RedirectToAction("Index", "StandardPage");
+        }
+
         public ActionResult AddTreatment(StandardPageViewModel model)
         {
             if (!User.IsInRole(LocalizationService.Current.GetString("/adminrole")))

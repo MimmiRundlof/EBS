@@ -50,6 +50,14 @@
         }
 
     </div>
+    <div>
+        @foreach (var item in Model.Treatments)
+        {
+            <p>@item.Text</p>
+            @Html.ActionLink("Ta bort", "DeleteTreatment", "Booking", new { treatmentId = item.Value }, null)
+
+        }
+    </div>
 }
 else
 {
