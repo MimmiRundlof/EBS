@@ -18,40 +18,40 @@
 
 
 
-@if (User.IsInRole("Admin"))
+@if (User.IsInRole(@Html.Translate("/adminrole")))
 {
     <div class="pure-g">
         <div class="pure-u-3-5">
-            <h4>Bokningar:</h4>
+            <h4>@Html.Translate("/bookings")</h4>
             <hr />
             @foreach (var item in Model.Appointments.OrderByDescending(x => x.Date))
             {
 
-                <p>Behandling: @item.Treatment.Name </p>
-                <p>Datum: @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
-                <p>Kund: @item.Customer.UserName</p>
-                @Html.ActionLink("Avboka kunds bokning", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
+            <p>@Html.Translate("/treatment"): @item.Treatment.Name </p>
+            <p>@Html.Translate("/date"): @item.Date.ToString("yyyy/MM/dd HH:mm")</p>
+            <p>@Html.Translate("/customer"): @item.Customer.UserName</p>
+                @Html.ActionLink(@Html.Translate("/cancelcustomersappointment"), "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)
                 <hr />
 
             }
         </div>
         <div class="pure-u-2-5 add-treatment">
-            <h4>Lägg till behandling</h4>
+            <h4>@Html.Translate("/addtreatment")</h4>
             @using (Html.BeginForm("AddTreatment", "Booking", FormMethod.Post, new { @class = "pure-form pure-form-stacked" }))
             {
                 <fieldset>
-                    @Html.TextBoxFor(m => m.Treatment, new { placeholder = "Behandling", @class = "pure-input-1-1 input-spacer" })
-                    @Html.TextAreaFor(m => m.Description, new { placeholder = "Beskrivning", @class = "pure-input-1-1 input-spacer" })
-                    <input type="submit" class="pure-button pure-button-primary" value="Lägg till behandling" />
+                    @Html.TextBoxFor(m => m.Treatment, new { placeholder = @Html.Translate("/treatment"), @class = "pure-input-1-1 input-spacer" })
+                    @Html.TextAreaFor(m => m.Description, new { placeholder = @Html.Translate("/description"), @class = "pure-input-1-1 input-spacer" })
+                    <input type="submit" class="pure-button pure-button-primary" value="@Html.Translate("/addtreatment")" />
                 </fieldset>
 
 
 
 
             }
-            <h5>Behandlingar:</h5>
+                <h5>@Html.Translate("/treatments")</h5>
                 @foreach (var item in Model.Treatments)
-                {<p>@item.Text @Html.ActionLink("Ta bort behandling", "DeleteTreatment", "Booking", new { treatmentId = item.Value }, null)</p>
+                {<p>@item.Text @Html.ActionLink(@Html.Translate("/deletetreatment"), "DeleteTreatment", "Booking", new { treatmentId = item.Value }, null)</p>
                 
 
             }

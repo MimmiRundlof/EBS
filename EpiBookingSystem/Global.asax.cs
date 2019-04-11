@@ -11,13 +11,13 @@ namespace EpiBookingSystem
 
             var routes = RouteTable.Routes;
             routes.MapRoute(
-                "Default",                                              // Route name
-                "{controller}/{action}/{id}",                           // URL with parameters
-                new { controller = "Account", action = "LogIn", id = "" }  // Parameter defaults
+                "Default",                                              
+                "{controller}/{action}/{id}",                           
+                new { controller = "Account", action = "LogIn", id = "" }
             );
 
             RegisterRoutes(routes);
-            //    //Tip: Want to call the EPiServer API on startup? Add an initialization module instead (Add -> New Item.. -> EPiServer -> Initialization Module)
+           
         }
     }
 }

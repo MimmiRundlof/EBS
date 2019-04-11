@@ -4,11 +4,31 @@
     <loginerrormessage>Användarnamnet eller lösenordet stämmer inte.</loginerrormessage>
     <adminrole>Admin</adminrole>
     <userrole>User</userrole>
+    <login>Logga in</login>
+    <logout>Logga ut</logout>
+    <welcome>Välkommen</welcome>
+    <cancelcustomersappointment>Avboka kunds bokning</cancelcustomersappointment>
+    <treatment>Behandling</treatment>
+    <date>Datum</date>
+    <customer>Kund</customer>
+    <deletetreatment>Ta bort behandling</deletetreatment>
+    <description>Beskrivning</description>
+    <bookings>Bokningar</bookings>
+    <bookappointment>Boka behandling</bookappointment>
+    <pickdate>Välj datum här</pickdate>
+    <yourbookings>Dina bokningar</yourbookings>
+    <cancelappointment>Avboka</cancelappointment>
+    <picktreatment>Välj behandling</picktreatment>
+    <treatments>Behandlingar</treatments>
+    <book>Boka</book>
+    <addtreatment>Lägg till behandling</addtreatment>
+    <register>Skapa konto</register>
     <successvalidationmessage>Success</successvalidationmessage>
     <bookingerrormessage>Tiden är bokad, välj en annan.</bookingerrormessage>
     <authentication>
       <username>Användarnamn</username>
       <password>Lösenord</password>
+      <confirmpassword>Bekräfta lösenord</confirmpassword>
       <email>Email</email>
     </authentication>
   </language>

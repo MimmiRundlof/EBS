@@ -4,18 +4,18 @@
 
 
     <div class="pure-u-1-2 book-appointment-block">
-        <h2 class="brand-tagline">Boka behandling</h2>
+        <h2 class="brand-tagline">@Html.Translate("/bookappointment")</h2>
         @using (Html.BeginForm("BookAppointment", "BookAppointmentBlock", FormMethod.Post, new { @class = "pure-form" }))
         {
             <fieldset class="pure-group">
 
-                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, "Välj behandling", new { @class = "pure-input-1-1 input-spacer", @onchange = "enableSubmitButton()" })
+                @Html.DropDownListFor(m => m.TreatmentId, Model.Treatments, @Html.Translate("/picktreatment"), new { @class = "pure-input-1-1 input-spacer", @onchange = "enableSubmitButton()" })
 
 
                 <div class='input-group date' id='datetimepicker'>
                     <input type='text' name="Date" />
                     <span class="input-group-addon pure-u-1-1 input-spacer">
-                        Välj datum här
+                        @Html.Translate("/pickdate")
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
 
@@ -24,7 +24,7 @@
 
                     @if (User.IsInRole("WebAdmins"))
                     {
-                        <input type="submit" class="pure-button pure-button-primary book-button" value="Boka" disabled />
+                        <input type="submit" class="pure-button pure-button-primary book-button" value="@Html.Translate("/book")" disabled />
 
                     }
                     else
@@ -51,11 +51,6 @@
         function enableSubmitButton() {
             $('#submitButton').prop('disabled', false);
         }
-    $(document).ready(function () {
-
-        console.log(arr)
-
-    })
 
     $('#datetimepicker').datetimepicker({
         daysOfWeekDisabled: [0, 6],

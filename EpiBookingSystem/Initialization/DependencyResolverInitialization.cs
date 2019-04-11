@@ -25,8 +25,6 @@ namespace EpiBookingSystem
                 x.For<IBookingRepository>().Use<BookingRepository>();
                 x.For<IUserRepository>().Use<UserRepository>();
                 x.For<ApplicationDbContext>().Use<ApplicationDbContext>();
-                             
-
 
             });
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(context.StructureMap()));

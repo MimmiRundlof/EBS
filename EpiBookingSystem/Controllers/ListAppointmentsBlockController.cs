@@ -19,12 +19,10 @@ namespace EpiBookingSystem.Controllers
     {
         private IBookingRepository _repository;
 
-        private ApplicationDbContext _context;
 
-
-        public ListAppointmentsBlockController(IBookingRepository repository, ApplicationDbContext context)
+        public ListAppointmentsBlockController(IBookingRepository repository)
         {
-            _context = context;
+         
             _repository = repository;
 
         }

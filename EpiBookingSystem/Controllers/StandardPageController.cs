@@ -33,15 +33,12 @@ namespace EpiBookingSystem.Controllers
 
         private IBookingRepository _repository;
 
-        private ApplicationDbContext _context;
-
         private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
 
 
 
-        public StandardPageController(IBookingRepository repository, ApplicationDbContext context)
+        public StandardPageController(IBookingRepository repository)
         {
-            _context = context;
             _repository = repository;
 
         }

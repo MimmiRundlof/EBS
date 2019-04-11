@@ -27,16 +27,16 @@
                 <ul class="pure-menu-list">
                     @if (!User.IsInRole("WebAdmins") && User.Identity.IsAuthenticated)
                     {
-                        <li class="pure-menu-item">Välkommen @userName</li><br />
-                        <li class="pure-menu-item">@Html.ActionLink("Logga ut", "LogOut", "Account")</li>
+                    <li class="pure-menu-item">@Html.Translate("/welcome") @userName</li><br />
+                        <li class="pure-menu-item">@Html.ActionLink(@Html.Translate("/logout"), "LogOut", "Account")</li>
                     }
                     else
                     {
                         <li class="pure-menu-item">
-                            @Html.ActionLink("Logga in", "LogIn", "Account", new { area = "" }, new { @class = "" }) |
+                            @Html.ActionLink(@Html.Translate("/login"), "LogIn", "Account", new { area = "" }, new { @class = "" }) |
                         </li>
                         <li class="pure-menu-item">
-                            @Html.ActionLink("Skapa konto", "Register", "Account", new { area = "" }, new { @class = "" })
+                            @Html.ActionLink(@Html.Translate("/register"), "Register", "Account", new { area = "" }, new { @class = "" })
                         </li>
                     }
                 </ul>

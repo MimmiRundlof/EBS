@@ -21,12 +21,10 @@ namespace EpiBookingSystem.Controllers
     {
         private IBookingRepository _repository;
 
-        private ApplicationDbContext _context;
 
-
-        public BookAppointmentBlockController(IBookingRepository repository, ApplicationDbContext context)
+        public BookAppointmentBlockController(IBookingRepository repository)
         {
-            _context = context;
+
             _repository = repository;
 
         }
@@ -34,8 +32,6 @@ namespace EpiBookingSystem.Controllers
 
         public override ActionResult Index(BookAppointmentBlock currentBlock)
         {
-
-       
 
             var model = CreateViewModel();
 
@@ -48,22 +44,23 @@ namespace EpiBookingSystem.Controllers
 
             var list = _repository.GetAllAppointments().Select(x => x.Date).ToList();
 
-            List<Array> array = new List<Array>();
+            List<Array> arrayOfDates = new List<Array>();
 
             foreach (var item in list)
             {
                 var first = item.AddHours(-1);
                 var second = item.AddHours(1);
 
-                String[] arr = new String[] { first.ToString("yyyy-MM-dd HH:mm"), second.ToString("yyyy-MM-dd HH:mm") };
+                String[] datetimes = new String[] { first.ToString("yyyy-MM-dd HH:mm"), second.ToString("yyyy-MM-dd HH:mm") };
 
-                array.Add(arr);
+                arrayOfDates.Add(datetimes);
+
             }
 
             var model = new BookAppointmentBlockViewModel()
             {
                 Treatments = _repository.GetTreatments(),
-                BookedDates = array
+                BookedDates = arrayOfDates
 
             };
             return model;
@@ -97,7 +94,7 @@ namespace EpiBookingSystem.Controllers
             }
             else
             {
-                
+
                 return RedirectToAction("Index", "StandardPage", model);
             }
         }

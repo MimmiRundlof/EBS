@@ -50,7 +50,7 @@ namespace EpiBookingSystem.Repositories
             var appointment = new Appointment
             {
                 Treatment = _context.Treatment.SingleOrDefault(x => x.TreatmentId == treatmentId),
-                Customer = _context.Users.SingleOrDefault(x=> x.Id == userId),
+                Customer = _context.Users.SingleOrDefault(x => x.Id == userId),
                 Date = date
             };
             _context.Appointment.Add(appointment);
@@ -66,7 +66,7 @@ namespace EpiBookingSystem.Repositories
 
         public List<Appointment> GetAllAppointments()
         {
-            var appointments = _context.Appointment.Include(t=>t.Treatment).Include(c=> c.Customer).ToList();
+            var appointments = _context.Appointment.Include(t => t.Treatment).Include(c => c.Customer).ToList();
 
             return appointments;
         }
@@ -74,7 +74,7 @@ namespace EpiBookingSystem.Repositories
 
         public List<Appointment> GetAppointments(string userId)
         {
-            var appointments = _context.Appointment.Include(t=> t.Treatment).Where(x => x.Customer.Id == userId).ToList();
+            var appointments = _context.Appointment.Include(t => t.Treatment).Where(x => x.Customer.Id == userId).ToList();
 
             return appointments;
 

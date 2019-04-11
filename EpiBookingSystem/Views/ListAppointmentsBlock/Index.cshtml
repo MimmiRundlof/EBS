@@ -5,13 +5,13 @@
 
 
     <div class="pure-u-1-2 list-appointments-block">
-        <h3 class="content-head">Dina bokningar</h3>
+        <h3 class="content-head">@Html.Translate("/yourbookings")</h3>
         <hr />
         @foreach (var item in Model.Appointments.OrderByDescending(x=>x.Date))
         {
 
             <h5>@item.Treatment.Name</h5>
-            <p>@item.Date.ToString("yyyy/MM/dd HH:mm")- @Html.ActionLink("Avboka", "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
+            <p>@item.Date.ToString("yyyy/MM/dd HH:mm")- @Html.ActionLink(@Html.Translate("/cancelappointment"), "CancelAppointment", "Booking", new { appointmentId = item.AppointmentId }, null)</p>
             <p>@item.Treatment.Description</p>
             <hr />
         }
